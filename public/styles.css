@@ -188,7 +188,8 @@ td .sub { color: var(--text-faint); font-size: 12px; font-weight: 400; }
 .cli-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 .cli-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
 .cli-head h3 { margin: 0; }
-.cli-logo { width: 24px; height: 24px; flex: 0 0 24px; display: block; }
+.cli-logo { width: 24px; height: 24px; flex: 0 0 auto; display: block; object-fit: contain; }
+.cli-logo { object-fit: contain; }
 .cli-logo.fb {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px;
