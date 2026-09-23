@@ -8,15 +8,15 @@ const I18N = {
     'nav.mcp': 'MCP',
     'nav.categories': 'Danh mục',
     'nav.repos': 'Kho mã nguồn',
+    'nav.cli': 'CLI',
+    'cli.intro': 'Lệnh cài đặt dòng lệnh cho các AI coding CLI. Lấy từ tài liệu chính thức — chọn lệnh khớp OS của bạn.',
+    'cli.docs': 'Tài liệu',
+    'cli.copy': 'Sao chép',
+    'cli.bin': 'Sau khi cài: ',
     'loading': 'đang tải…',
     'noData': 'chưa có dữ liệu',
     'search.ph': 'Tìm theo tên, mô tả, danh mục…',
     'search.label': 'Tìm trong kiểm kê',
-    'refresh.btn': 'Làm mới',
-    'refresh.aria': 'Làm mới kiểm kê (quét lại môi trường cục bộ)',
-    'refresh.busy': '⟳ Đang quét lại…',
-    'refresh.ok': 'Đã làm mới kiểm kê ✓',
-    'refresh.fail': 'Làm mới thất bại (${e}) — chạy: npm run inventory:all',
     'copied': 'Đã sao chép ✓',
     'copy.failed': 'Sao chép thất bại — chọn thủ công',
     'banner.loading': 'Đang quét… tải dữ liệu kiểm kê.',
@@ -24,7 +24,6 @@ const I18N = {
     'banner.rate': 'Không lấy được metadata GitHub (giới hạn tốc độ). Đồng bộ gần nhất: ${d}',
     'banner.scanWarn': '${n} cảnh báo quét.',
     'panel.categories': 'Danh mục',
-    'panel.fresh': 'Độ mới dữ liệu',
     'cap.cats': 'Số lượng mỗi danh mục',
     'cap.skills': 'Kỹ năng đã phát hiện',
     'cap.mcp': 'Máy chủ MCP đã phát hiện',
@@ -91,16 +90,6 @@ const I18N = {
     'kpi.categories.hint': 'nhóm phân loại',
     'kpi.unver': 'Hạng mục chưa xác minh',
     'kpi.unver.hint': 'một phần + chưa xác minh',
-    'fresh.lastScan': 'Lần quét cuối',
-    'fresh.lastBuild': 'Lần build cuối',
-    'fresh.lastGh': 'Đồng bộ GitHub cuối',
-    'fresh.env': 'Môi trường',
-    'fresh.ghApi': 'API GitHub',
-    'fresh.ghAuth': 'đã xác thực',
-    'fresh.ghNoAuth': 'chưa xác thực',
-    'fresh.stars': 'Sao đã lấy',
-    'fresh.items': '${n} hạng mục',
-    'fresh.status': 'Trạng thái',
     'empty.skills': 'Chưa phát hiện kỹ năng nào',
     'empty.skillsHint': 'Chạy quét: npm run inventory:scan',
     'empty.mcp': 'Chưa phát hiện máy chủ MCP',
@@ -185,7 +174,6 @@ const I18N = {
     'openDetails': 'Mở chi tiết ${n}',
     'openRepo': 'Mở ${n} trên GitHub',
     'searchHint': 'Nhập để tìm…',
-    'meta.scan': 'quét ${d}',
     'meta.sync': 'đồng bộ GitHub: ${d}',
     'level.high': 'cao',
     'level.medium': 'trung bình',
@@ -220,15 +208,15 @@ const I18N = {
     'nav.mcp': 'MCP',
     'nav.categories': 'Categories',
     'nav.repos': 'Repositories',
+    'nav.cli': 'CLI',
+    'cli.intro': 'Install commands for AI coding CLIs. Taken from official docs — pick the command that matches your OS.',
+    'cli.docs': 'Docs',
+    'cli.copy': 'Copy',
+    'cli.bin': 'After install: ',
     'loading': 'loading…',
     'noData': 'no data',
     'search.ph': 'Search name, description, category…',
     'search.label': 'Search inventory',
-    'refresh.btn': 'Refresh',
-    'refresh.aria': 'Refresh inventory (re-scan local environment)',
-    'refresh.busy': '⟳ Re-scanning…',
-    'refresh.ok': 'Inventory refreshed ✓',
-    'refresh.fail': 'Refresh failed (${e}) — run: npm run inventory:all',
     'copied': 'Copied ✓',
     'copy.failed': 'Copy failed — select manually',
     'banner.loading': 'Scanning… loading inventory data.',
@@ -236,7 +224,6 @@ const I18N = {
     'banner.rate': 'GitHub metadata unavailable (rate limit). Last successful sync: ${d}',
     'banner.scanWarn': '${n} scan warning(s).',
     'panel.categories': 'Categories',
-    'panel.fresh': 'Data freshness',
     'cap.cats': 'Counts per category',
     'cap.skills': 'Discovered skills',
     'cap.mcp': 'Discovered MCP servers',
@@ -303,16 +290,6 @@ const I18N = {
     'kpi.categories.hint': 'classification groups',
     'kpi.unver': 'Unverified items',
     'kpi.unver.hint': 'partial + unverified',
-    'fresh.lastScan': 'Last scan',
-    'fresh.lastBuild': 'Last build',
-    'fresh.lastGh': 'Last GitHub sync',
-    'fresh.env': 'Environment',
-    'fresh.ghApi': 'GitHub API',
-    'fresh.ghAuth': 'authenticated',
-    'fresh.ghNoAuth': 'unauthenticated',
-    'fresh.stars': 'Stars fetched',
-    'fresh.items': '${n} items',
-    'fresh.status': 'Status',
     'empty.skills': 'No skills discovered',
     'empty.skillsHint': 'Run inventory scan: npm run inventory:scan',
     'empty.mcp': 'No MCP servers discovered',
@@ -726,11 +703,11 @@ function renderAll() {
   renderMcp();
   renderCategories();
   renderRepos();
+  renderCli();
 }
 
 function renderMeta() {
   const m = state.meta;
-  $('#brand-scan').textContent = m ? t('meta.scan', { d: fmtDate(m.lastScan) }) : t('noData');
   $('#sync-info').textContent = m ? t('meta.sync', { d: fmtDate(m.lastGithubSync) }) : '';
 }
 
@@ -779,18 +756,6 @@ function renderOverview() {
       el('td', { class: 'mono', text: String(c2.mcp) }),
       el('td', { class: 'mono', text: `${c2.total} / ${maxTotal}` }),
       el('td', { class: 'mono', text: String(c2.verified) }))));
-
-  const fresh = state.meta ? [
-    [t('fresh.lastScan'), fmtDate(state.meta.lastScan)],
-    [t('fresh.lastBuild'), fmtDate(state.meta.lastBuilt)],
-    [t('fresh.lastGh'), fmtDate(state.meta.lastGithubSync)],
-    ...(state.meta.os || state.meta.node
-      ? [[t('fresh.env'), `${state.meta.os || '?'} · node ${state.meta.node || '?'}`]]
-      : []),
-    [t('fresh.ghApi'), state.meta.githubAuthenticated ? t('fresh.ghAuth') : t('fresh.ghNoAuth')],
-    [t('fresh.stars'), t('fresh.items', { n: state.meta.counts?.withStars ?? 0 })],
-  ] : [[t('fresh.status'), t('noData')]];
-  $('#ov-fresh').replaceChildren(...fresh.flatMap(([k, v]) => [el('dt', { text: k }), el('dd', { text: v })]));
 }
 
 // ---------- filters ----------
@@ -1232,6 +1197,119 @@ function drawerSections(kind, item) {
   return out;
 }
 
+const CLIS = [
+  {
+    id: 'opencode',
+    name: 'OpenCode',
+    slug: 'opencode',
+    bin: 'opencode',
+    docs: 'https://opencode.ai',
+    cmds: [
+      ['npm', 'npm install -g @opencode-ai/cli@next'],
+      ['script', 'curl -fsSL https://raw.githubusercontent.com/opencode-ai/opencode/refs/heads/main/install | bash'],
+      ['Homebrew', 'brew install opencode-ai/tap/opencode'],
+    ],
+  },
+  {
+    id: 'codex',
+    name: 'Codex',
+    slug: 'openai',
+    bin: 'codex',
+    docs: 'https://github.com/openai/codex',
+    cmds: [
+      ['npm', 'npm install -g @openai/codex'],
+      ['Homebrew', 'brew install --cask codex'],
+    ],
+  },
+  {
+    id: 'antigravity',
+    name: 'Antigravity CLI',
+    slug: 'antigravity',
+    bin: 'agy',
+    docs: 'https://antigravity.google',
+    cmds: [
+      ['macOS/Linux', 'curl -fsSL https://antigravity.google/cli/install.sh | bash'],
+      ['Windows', 'install.cmd → ~/.local/bin/agy'],
+    ],
+  },
+  {
+    id: 'mimo',
+    name: 'MiMo Code CLI',
+    slug: 'mimo',
+    bin: 'mimo',
+    docs: 'https://mimo.xiaomi.com',
+    cmds: [
+      ['macOS/Linux', 'curl -fsSL https://mimo.xiaomi.com/install | bash'],
+      ['Windows', 'powershell -ep Bypass -c "irm https://mimo.xiaomi.com/install.ps1 | iex"'],
+      ['npm', 'npm install -g @mimo-ai/cli'],
+    ],
+  },
+  {
+    id: 'deepseek',
+    name: 'DeepSeek CLI',
+    slug: 'deepseek',
+    bin: 'deepseek',
+    docs: 'https://pypi.org/project/deepseek-cli/',
+    cmds: [
+      ['pip', 'pip install deepseek-cli'],
+    ],
+    note: 'Gói cộng đồng trên PyPI (PierrunoYT) — không phải CLI chính thức của DeepSeek.',
+    noteEn: 'Community package on PyPI (PierrunoYT) — not DeepSeek’s official CLI.',
+  },
+  {
+    id: 'claude',
+    name: 'Claude Code',
+    slug: 'anthropic',
+    bin: 'claude',
+    docs: 'https://github.com/anthropics/claude-code',
+    cmds: [
+      ['npm', 'npm install -g @anthropic-ai/claude-code'],
+    ],
+  },
+  {
+    id: 'aider',
+    name: 'Aider',
+    slug: 'aider',
+    bin: 'aider',
+    docs: 'https://aider.chat',
+    cmds: [
+      ['pip', 'python -m pip install aider-install && aider-install'],
+    ],
+  },
+];
+
+function cliLogo(slug, name) {
+  const fb = el('span', { class: 'cli-logo fb', 'aria-hidden': 'true', text: name[0] });
+  if (!slug) return fb;
+  const img = el('img', {
+    class: 'cli-logo', src: `https://cdn.simpleicons.org/${slug}`, alt: '',
+    width: '24', height: '24', loading: 'lazy', decoding: 'async',
+  });
+  img.addEventListener('error', () => img.replaceWith(fb));
+  return img;
+}
+
+function renderCli() {
+  const root = $('#cli-grid');
+  if (!root) return;
+  root.replaceChildren(...CLIS.map(c => el('div', { class: 'card' },
+    el('div', { class: 'cli-head' },
+      cliLogo(c.slug, c.name),
+      el('h3', { text: c.name })),
+    ...c.cmds.map(([label, cmd]) => el('div', { class: 'cli-cmd' },
+      el('div', { class: 'cli-cmd-label mono', text: label }),
+      el('pre', { class: 'snippet', text: cmd }),
+      el('div', { class: 'row-actions' },
+        el('button', {
+          class: 'btn btn-sm', type: 'button',
+          onclick: e => copyText(cmd, e.target),
+        }, t('cli.copy'))))),
+    c.note ? el('p', { class: 'meta dim', text: lang === 'vi' ? c.note : (c.noteEn || c.note), style: 'margin:8px 0 0' }) : null,
+    el('div', { class: 'row-actions' },
+      el('span', { class: 'meta mono dim', text: `${t('cli.bin')}${c.bin}` }),
+      linkBtn(t('cli.docs'), c.docs)))));
+}
+
 // ---------- nav ----------
 function go(view) {
   state.view = view;
@@ -1284,22 +1362,6 @@ function bind() {
 
   $('#drawer-close').addEventListener('click', closeDrawer);
   $('#overlay').addEventListener('click', closeDrawer);
-
-  $('#btn-refresh').addEventListener('click', async () => {
-    const btn = $('#btn-refresh');
-    const label = btn.querySelector('span');
-    btn.disabled = true; if (label) label.textContent = t('refresh.busy').replace('⟳ ', '');
-    try {
-      const res = await fetch('api/rescan', { method: 'POST' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      await load();
-      toast(t('refresh.ok'));
-    } catch (e) {
-      toast(t('refresh.fail', { e: e.message }));
-    } finally {
-      btn.disabled = false; if (label) label.textContent = t('refresh.btn');
-    }
-  });
 }
 
 document.documentElement.lang = lang;

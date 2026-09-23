@@ -13,7 +13,6 @@
     <nav class="sidebar" aria-label="Main navigation" data-i18n-aria="nav.main">
       <div class="brand">
         <h1>Skill &amp; MCP Inventory</h1>
-        <div class="sub" id="brand-scan" data-i18n="loading">đang tải…</div>
       </div>
       <ul class="nav" role="list">
         <li><button type="button" data-view="overview" aria-current="page"><span class="ico" aria-hidden="true">◈</span> <span data-i18n="nav.overview">Tổng quan</span></button></li>
@@ -21,6 +20,7 @@
         <li><button type="button" data-view="mcp"><span class="ico" aria-hidden="true">⬡</span> <span data-i18n="nav.mcp">MCP</span></button></li>
         <li><button type="button" data-view="categories"><span class="ico" aria-hidden="true">▤</span> <span data-i18n="nav.categories">Danh mục</span></button></li>
         <li><button type="button" data-view="repos"><span class="ico" aria-hidden="true">⎇</span> <span data-i18n="nav.repos">Kho mã nguồn</span></button></li>
+        <li><button type="button" data-view="cli"><span class="ico" aria-hidden="true">⌘</span> <span data-i18n="nav.cli">CLI</span></button></li>
       </ul>
     </nav>
 
@@ -36,7 +36,6 @@
           <button type="button" class="btn btn-sm lang-btn" data-lang="vi" lang="vi" aria-pressed="true">VI</button>
           <button type="button" class="btn btn-sm lang-btn" data-lang="en" lang="en" aria-pressed="false">EN</button>
         </div>
-        <button type="button" class="btn" id="btn-refresh" data-i18n-aria="refresh.aria" aria-label="Làm mới kiểm kê (quét lại môi trường cục bộ)">⟳ <span data-i18n="refresh.btn">Làm mới</span></button>
         <span class="faint mono" id="sync-info" aria-live="polite"></span>
       </header>
 
@@ -62,10 +61,6 @@
                 <tbody id="ov-cats"></tbody>
               </table>
             </div>
-          </div>
-          <div class="panel">
-            <h2 data-i18n="panel.fresh">Độ mới dữ liệu</h2>
-            <dl class="kv" id="ov-fresh"></dl>
           </div>
         </section>
 
@@ -169,6 +164,13 @@
             </table>
           </div>
           <div id="repo-empty"></div>
+        </section>
+
+        <!-- CLI -->
+        <section class="view" id="view-cli" aria-labelledby="cli-h">
+          <h2 id="cli-h" class="visually-hidden" hidden data-i18n="nav.cli">CLI</h2>
+          <p class="dim" data-i18n="cli.intro" style="margin:0 0 14px">Lệnh cài đặt dòng lệnh cho các AI coding CLI. Lấy từ tài liệu chính thức — chọn lệnh khớp OS của bạn.</p>
+          <div class="grid cli-grid" id="cli-grid"></div>
         </section>
       </main>
     </div>
