@@ -1201,7 +1201,7 @@ const CLIS = [
   {
     id: 'opencode',
     name: 'OpenCode',
-    slug: 'opencode',
+    logo: 'opencode.svg',
     bin: 'opencode',
     docs: 'https://opencode.ai',
     cmds: [
@@ -1213,7 +1213,7 @@ const CLIS = [
   {
     id: 'codex',
     name: 'Codex',
-    slug: 'openai',
+    logo: 'codex.svg',
     bin: 'codex',
     docs: 'https://github.com/openai/codex',
     cmds: [
@@ -1224,7 +1224,7 @@ const CLIS = [
   {
     id: 'antigravity',
     name: 'Antigravity CLI',
-    slug: 'antigravity',
+    logo: 'antigravity.svg',
     bin: 'agy',
     docs: 'https://antigravity.google',
     cmds: [
@@ -1235,7 +1235,7 @@ const CLIS = [
   {
     id: 'mimo',
     name: 'MiMo Code CLI',
-    slug: 'mimo',
+    logo: 'mimo.svg',
     bin: 'mimo',
     docs: 'https://mimo.xiaomi.com',
     cmds: [
@@ -1247,7 +1247,7 @@ const CLIS = [
   {
     id: 'deepseek',
     name: 'DeepSeek CLI',
-    slug: 'deepseek',
+    logo: 'deepseek.svg',
     bin: 'deepseek',
     docs: 'https://pypi.org/project/deepseek-cli/',
     cmds: [
@@ -1259,7 +1259,7 @@ const CLIS = [
   {
     id: 'claude',
     name: 'Claude Code',
-    slug: 'anthropic',
+    logo: 'claude.svg',
     bin: 'claude',
     docs: 'https://github.com/anthropics/claude-code',
     cmds: [
@@ -1269,7 +1269,7 @@ const CLIS = [
   {
     id: 'aider',
     name: 'Aider',
-    slug: 'aider',
+    logo: 'aider.svg',
     bin: 'aider',
     docs: 'https://aider.chat',
     cmds: [
@@ -1278,11 +1278,11 @@ const CLIS = [
   },
 ];
 
-function cliLogo(slug, name) {
+function cliLogo(file, name) {
   const fb = el('span', { class: 'cli-logo fb', 'aria-hidden': 'true', text: name[0] });
-  if (!slug) return fb;
+  if (!file) return fb;
   const img = el('img', {
-    class: 'cli-logo', src: `https://cdn.simpleicons.org/${slug}`, alt: '',
+    class: 'cli-logo', src: `logos/${file}`, alt: '',
     width: '24', height: '24', loading: 'lazy', decoding: 'async',
   });
   img.addEventListener('error', () => img.replaceWith(fb));
@@ -1294,7 +1294,7 @@ function renderCli() {
   if (!root) return;
   root.replaceChildren(...CLIS.map(c => el('div', { class: 'card' },
     el('div', { class: 'cli-head' },
-      cliLogo(c.slug, c.name),
+      cliLogo(c.logo, c.name),
       el('h3', { text: c.name })),
     ...c.cmds.map(([label, cmd]) => el('div', { class: 'cli-cmd' },
       el('div', { class: 'cli-cmd-label mono', text: label }),
