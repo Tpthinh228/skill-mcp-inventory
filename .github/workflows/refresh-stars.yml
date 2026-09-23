@@ -1,0 +1,35 @@
+name: Refresh GitHub stars
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Sync stars from GitHub API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run inventory:github
+
+      - name: Rebuild public data
+        run: npm run inventory:build
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data data/skills.json data/mcp.json data/github-cache.json data/meta.json data/categories.json data/sources.json data/github-errors.json 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "chore: refresh GitHub stars"
+          git push

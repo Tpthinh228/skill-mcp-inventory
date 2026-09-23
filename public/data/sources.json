@@ -1,0 +1,44 @@
+{
+  "lastBuilt": "2026-09-23T09:13:57.977Z",
+  "skillRoots": [
+    {
+      "label": ".agents/skills (global)"
+    },
+    {
+      "label": ".claude/skills (global)"
+    },
+    {
+      "label": ".codex/skills (global)"
+    },
+    {
+      "label": ".config/opencode/skills (global)"
+    },
+    {
+      "label": "opencode packages: superpowers"
+    },
+    {
+      "label": "opencode packages: ponytail"
+    },
+    {
+      "label": ".agents/skills (project)"
+    },
+    {
+      "label": "codex plugins: claude-mem"
+    }
+  ],
+  "mcpConfigs": [
+    "~/.config/opencode/opencode.jsonc",
+    "~/.claude.json",
+    "~/.codex/config.toml"
+  ],
+  "registryApis": [
+    "https://registry.npmjs.org",
+    "https://pypi.org/pypi/<pkg>/json"
+  ],
+  "githubApi": "https://api.github.com/repos/<owner>/<repo>",
+  "notes": [
+    "All values are produced by local scan scripts; nothing is hardcoded.",
+    "GitHub stars fetched only for repos resolved from config git sources or package registry metadata.",
+    "Token (if any) is read from environment at runtime and never written to data files."
+  ]
+}

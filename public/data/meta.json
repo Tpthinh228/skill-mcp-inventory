@@ -1,0 +1,25 @@
+{
+  "lastScan": "2026-09-23T08:37:07.966Z",
+  "lastBuilt": "2026-09-23T09:13:57.977Z",
+  "lastGithubSync": "2026-09-23T08:58:33.361Z",
+  "githubAuthenticated": false,
+  "githubRateLimited": false,
+  "scanErrors": [],
+  "mcpScanErrors": [],
+  "githubErrors": [],
+  "counts": {
+    "skills": 81,
+    "skillsExcludedNoRepo": 0,
+    "skillsInstalled": 81,
+    "mcp": 5,
+    "mcpConfigured": 5,
+    "categories": 10,
+    "reposVerified": 86,
+    "reposUnverified": 0,
+    "verified": 86,
+    "partial": 0,
+    "unverified": 0,
+    "tested": 0,
+    "withStars": 86
+  }
+}

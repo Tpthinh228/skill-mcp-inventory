@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Skill &amp; MCP Inventory</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content" data-i18n="skip">Bỏ qua tới nội dung chính</a>
+  <div class="app">
+    <nav class="sidebar" aria-label="Main navigation" data-i18n-aria="nav.main">
+      <div class="brand">
+        <h1>Skill &amp; MCP Inventory</h1>
+        <div class="sub" id="brand-scan" data-i18n="loading">đang tải…</div>
+      </div>
+      <ul class="nav" role="list">
+        <li><button type="button" data-view="overview" aria-current="page"><span class="ico" aria-hidden="true">◈</span> <span data-i18n="nav.overview">Tổng quan</span></button></li>
+        <li><button type="button" data-view="skills"><span class="ico" aria-hidden="true">◆</span> <span data-i18n="nav.skills">Kỹ năng</span></button></li>
+        <li><button type="button" data-view="mcp"><span class="ico" aria-hidden="true">⬡</span> <span data-i18n="nav.mcp">MCP</span></button></li>
+        <li><button type="button" data-view="categories"><span class="ico" aria-hidden="true">▤</span> <span data-i18n="nav.categories">Danh mục</span></button></li>
+        <li><button type="button" data-view="repos"><span class="ico" aria-hidden="true">⎇</span> <span data-i18n="nav.repos">Kho mã nguồn</span></button></li>
+      </ul>
+    </nav>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="search-wrap">
+          <span class="s-ico" aria-hidden="true">⌕</span>
+          <label class="visually-hidden" for="global-search" hidden data-i18n="search.label">Tìm trong kiểm kê</label>
+          <input id="global-search" name="q" type="search" data-i18n-ph="search.ph" placeholder="Tìm theo tên, mô tả, danh mục…"
+                 autocomplete="off" data-i18n-aria="search.label" aria-label="Tìm trong kiểm kê" />
+        </div>
+        <div class="lang-toggle" role="group" data-i18n-aria="lang.group" aria-label="Ngôn ngữ">
+          <button type="button" class="btn btn-sm lang-btn" data-lang="vi" lang="vi" aria-pressed="true">VI</button>
+          <button type="button" class="btn btn-sm lang-btn" data-lang="en" lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="btn" id="btn-refresh" data-i18n-aria="refresh.aria" aria-label="Làm mới kiểm kê (quét lại môi trường cục bộ)">⟳ <span data-i18n="refresh.btn">Làm mới</span></button>
+        <span class="faint mono" id="sync-info" aria-live="polite"></span>
+      </header>
+
+      <main class="content" id="main-content">
+        <div id="banner-slot"></div>
+
+        <!-- OVERVIEW -->
+        <section class="view active" id="view-overview" aria-labelledby="ov-h">
+          <h2 id="ov-h" class="visually-hidden" hidden data-i18n="nav.overview">Tổng quan</h2>
+          <div class="kpis" id="kpis"></div>
+          <div class="panel">
+            <h2 data-i18n="panel.categories">Danh mục</h2>
+            <div class="table-wrap">
+              <table>
+                <caption class="visually-hidden" hidden data-i18n="cap.cats">Số lượng mỗi danh mục</caption>
+                <thead><tr>
+                  <th scope="col" data-i18n="th.category">Danh mục</th>
+                  <th scope="col" data-i18n="th.skills">Kỹ năng</th>
+                  <th scope="col">MCP</th>
+                  <th scope="col" data-i18n="th.total">Tổng</th>
+                  <th scope="col" data-i18n="th.verified">Đã xác minh</th>
+                </tr></thead>
+                <tbody id="ov-cats"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel">
+            <h2 data-i18n="panel.fresh">Độ mới dữ liệu</h2>
+            <dl class="kv" id="ov-fresh"></dl>
+          </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section class="view" id="view-skills" aria-labelledby="sk-h">
+          <h2 id="sk-h" class="visually-hidden" hidden data-i18n="nav.skills">Kỹ năng</h2>
+          <div class="filters" data-scope="skills">
+            <label><span data-i18n="th.category">Danh mục</span> <select name="category" data-filter="category" data-i18n-aria="filter.byCat" aria-label="Lọc kỹ năng theo danh mục"><option value="" data-i18n="common.all">Tất cả</option></select></label>
+            <label><span data-i18n="th.source">Nguồn</span> <select name="source" data-filter="source" data-i18n-aria="filter.bySource" aria-label="Lọc kỹ năng theo nguồn"><option value="" data-i18n="common.all">Tất cả</option></select></label>
+            <label><input type="checkbox" name="hasGithub" data-filter="hasGithub" /> <span data-i18n="filter.hasGithub">Có GitHub</span></label>
+            <label><input type="checkbox" name="verified" data-filter="verified" /> <span data-i18n="th.verified">Đã xác minh</span></label>
+            <label><input type="checkbox" name="tested" data-filter="tested" /> <span data-i18n="th.tested">Đã kiểm thử</span></label>
+            <label><span data-i18n="th.sort">Sắp xếp</span> <select name="sort" data-sort data-i18n-aria="filter.sortSkills" aria-label="Sắp xếp kỹ năng">
+              <option value="name" data-i18n="sort.name">Tên</option>
+              <option value="stars" data-i18n="sort.stars">Sao</option>
+              <option value="updated" data-i18n="sort.updated">Cập nhật gần nhất</option>
+            </select></label>
+            <span class="result-count" data-count></span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <caption class="visually-hidden" hidden data-i18n="cap.skills">Kỹ năng đã phát hiện</caption>
+              <thead><tr>
+                <th scope="col" data-th="name" data-i18n="sort.name">Tên</th>
+                <th scope="col" data-th="category" data-i18n="th.category">Danh mục</th>
+                <th scope="col" data-i18n="th.purpose">Mục đích</th>
+                <th scope="col" data-th="stars" data-i18n="sort.stars">Sao</th>
+                <th scope="col" data-i18n="th.links">Liên kết</th>
+                <th scope="col" data-i18n="drawer.detail">Chi tiết</th>
+              </tr></thead>
+              <tbody id="skills-rows"></tbody>
+            </table>
+          </div>
+          <div id="skills-empty"></div>
+        </section>
+
+        <!-- MCP -->
+        <section class="view" id="view-mcp" aria-labelledby="mc-h">
+          <h2 id="mc-h" class="visually-hidden" hidden data-i18n="cap.mcp">Máy chủ MCP</h2>
+          <div class="filters" data-scope="mcp">
+            <label><span data-i18n="th.category">Danh mục</span> <select name="category" data-filter="category" data-i18n-aria="filter.byCatMcp" aria-label="Lọc MCP theo danh mục"><option value="" data-i18n="common.all">Tất cả</option></select></label>
+            <label><span data-i18n="th.source">Nguồn</span> <select name="source" data-filter="source" data-i18n-aria="filter.byHost" aria-label="Lọc MCP theo host"><option value="" data-i18n="common.all">Tất cả</option></select></label>
+            <label><input type="checkbox" name="hasGithub" data-filter="hasGithub" /> <span data-i18n="filter.hasGithub">Có GitHub</span></label>
+            <label><input type="checkbox" name="verified" data-filter="verified" /> <span data-i18n="th.verified">Đã xác minh</span></label>
+            <label><input type="checkbox" name="tested" data-filter="tested" /> <span data-i18n="th.tested">Đã kiểm thử</span></label>
+            <label><span data-i18n="th.sort">Sắp xếp</span> <select name="sort" data-sort data-i18n-aria="filter.sortMcp" aria-label="Sắp xếp máy chủ MCP">
+              <option value="name" data-i18n="sort.name">Tên</option>
+              <option value="stars" data-i18n="sort.stars">Sao</option>
+              <option value="updated" data-i18n="sort.updated">Cập nhật gần nhất</option>
+            </select></label>
+            <span class="result-count" data-count></span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <caption class="visually-hidden" hidden data-i18n="cap.mcp">Máy chủ MCP đã phát hiện</caption>
+              <thead><tr>
+                <th scope="col" data-th="name" data-i18n="sort.name">Tên</th>
+                <th scope="col" data-th="category" data-i18n="th.category">Danh mục</th>
+                <th scope="col" data-i18n="th.transport">Giao thức</th>
+                <th scope="col" data-i18n="th.tools">Công cụ</th>
+                <th scope="col" data-th="stars" data-i18n="sort.stars">Sao</th>
+                <th scope="col" data-i18n="th.links">Liên kết</th>
+              </tr></thead>
+              <tbody id="mcp-rows"></tbody>
+            </table>
+          </div>
+          <div id="mcp-empty"></div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section class="view" id="view-categories" aria-labelledby="ct-h">
+          <h2 id="ct-h" class="visually-hidden" hidden data-i18n="nav.categories">Danh mục</h2>
+          <div class="grid" id="cat-grid"></div>
+        </section>
+
+        <!-- REPOSITORIES -->
+        <section class="view" id="view-repos" aria-labelledby="rp-h">
+          <h2 id="rp-h" class="visually-hidden" hidden data-i18n="nav.repos">Kho mã nguồn</h2>
+          <div class="filters" data-scope="repos">
+            <label><span data-i18n="th.sort">Sắp xếp</span> <select name="sort" data-sort data-i18n-aria="filter.sortRepos" aria-label="Sắp xếp kho mã nguồn">
+              <option value="stars" data-i18n="sort.stars">Sao</option>
+              <option value="updated" data-i18n="sort.updated">Cập nhật gần nhất</option>
+              <option value="name" data-i18n="sort.name">Tên</option>
+            </select></label>
+            <span class="result-count" data-count></span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <caption class="visually-hidden" hidden data-i18n="cap.repos">Kho mã nguồn GitHub trong kiểm kê</caption>
+              <thead><tr>
+                <th scope="col" data-th="name" data-i18n="th.repo">Kho mã nguồn</th>
+                <th scope="col" data-th="stars" data-i18n="sort.stars">Sao</th>
+                <th scope="col">Forks</th>
+                <th scope="col" data-i18n="th.lang">Ngôn ngữ</th>
+                <th scope="col" data-i18n="th.license">Giấy phép</th>
+                <th scope="col" data-i18n="th.release">Bản phát hành mới</th>
+                <th scope="col" data-th="updated" data-i18n="th.commit">Commit gần nhất</th>
+                <th scope="col" data-i18n="th.usedBy">Được dùng bởi</th>
+              </tr></thead>
+              <tbody id="repo-rows"></tbody>
+            </table>
+          </div>
+          <div id="repo-empty"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+    <div class="drawer-head">
+      <h2 id="drawer-title" data-i18n="drawer.detail">Chi tiết</h2>
+      <button type="button" class="btn btn-sm" id="drawer-close" data-i18n-aria="drawer.closeAria" aria-label="Đóng chi tiết">✕ <span data-i18n="drawer.close">Đóng</span></button>
+    </div>
+    <div id="drawer-body"></div>
+  </aside>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

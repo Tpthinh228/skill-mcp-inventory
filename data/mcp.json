@@ -1,0 +1,510 @@
+[
+  {
+    "id": "mcp-blender",
+    "name": "blender",
+    "displayName": "blender",
+    "category": "3D / Creative",
+    "description": "MCP server \"blender\" (package mcp-for-blender) configured in OpenCode via command `uvx`. Description inferred from local configuration — not fetched from upstream docs.",
+    "status": "configured",
+    "transport": "stdio",
+    "command": "uvx",
+    "args": [
+      "mcp-for-blender"
+    ],
+    "package": "mcp-for-blender",
+    "packageManager": "pypi",
+    "configPath": "~/.config/opencode/opencode.jsonc",
+    "configPaths": [
+      "~/.config/opencode/opencode.jsonc"
+    ],
+    "hosts": [
+      "OpenCode"
+    ],
+    "repoUrl": "https://github.com/ahujasid/blender-mcp",
+    "docsUrl": null,
+    "installCommand": "uvx mcp-for-blender",
+    "usageExample": null,
+    "authRequired": false,
+    "authMethod": null,
+    "tools": [],
+    "resources": [],
+    "prompts": [],
+    "enumerationNote": "Tools/resources not enumerated (server not queried during scan).",
+    "github": {
+      "owner": "ahujasid",
+      "repo": "mcp-for-blender",
+      "stars": 29206,
+      "forks": 2682,
+      "issues": 32,
+      "license": "MIT",
+      "language": "Python",
+      "lastCommit": "2026-09-21T05:37:57Z",
+      "latestRelease": null,
+      "starsFetchedAt": "2026-09-23T02:43:36.597Z",
+      "error": null,
+      "starsReason": null,
+      "description": "Community plugin to control Blender 3D with any LLM of your choice",
+      "htmlUrl": "https://github.com/ahujasid/mcp-for-blender"
+    },
+    "githubSource": "package registry (pypi): mcp-for-blender",
+    "configSnippet": "{\n  \"mcp\": {\n    \"blender\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"uvx\",\n        \"mcp-for-blender\"\n      ],\n      \"enabled\": true,\n      \"environment\": {\n        \"BLENDER_HOST\": \"localhost\",\n        \"BLENDER_PORT\": \"9876\"\n      }\n    }\n  }\n}",
+    "evidence": {
+      "configKey": "mcp.blender",
+      "enabled": true,
+      "envKeys": [
+        "BLENDER_HOST",
+        "BLENDER_PORT"
+      ]
+    },
+    "effectiveness": {
+      "score": 80,
+      "level": "high",
+      "confidence": "high",
+      "basis": [
+        "valid server entry found in tool config",
+        "command/args declared",
+        "package page resolvable",
+        "config sample derivable from local config",
+        "last push 2026-09-21",
+        "MCP config verified against known schema",
+        "no test/demo evidence"
+      ],
+      "tested": false,
+      "testResult": null,
+      "components": {
+        "reliability": 30,
+        "documentation": 20,
+        "maintenance": 20,
+        "compatibility": 10,
+        "practical": 0,
+        "maxPossible": 100,
+        "componentsAvailable": 5
+      },
+      "framework": "v1 (reliability30+docs25+maintenance20+compat10+practical15; stars excluded)"
+    },
+    "verification": {
+      "status": "verified",
+      "sources": [
+        "config:~/.config/opencode/opencode.jsonc"
+      ],
+      "evidence": [
+        "declared in OpenCode",
+        "command/args present in config",
+        "package resolved via registry"
+      ],
+      "lastVerified": "2026-09-23T07:56:06.623Z"
+    },
+    "sources": [
+      "OpenCode: ~/.config/opencode/opencode.jsonc"
+    ],
+    "subcategories": [
+      "Blender"
+    ],
+    "descriptionInferred": true,
+    "packageUrl": "https://pypi.org/project/mcp-for-blender/",
+    "version": "2.0.3"
+  },
+  {
+    "id": "mcp-chrome-devtools",
+    "name": "chrome-devtools",
+    "displayName": "chrome-devtools",
+    "category": "Browser / Web",
+    "description": "MCP server \"chrome-devtools\" (package chrome-devtools-mcp@latest) configured in OpenCode via command `npx`. Description inferred from local configuration — not fetched from upstream docs.",
+    "status": "configured",
+    "transport": "stdio",
+    "command": "npx",
+    "args": [
+      "-y",
+      "chrome-devtools-mcp@latest",
+      "--isolated"
+    ],
+    "package": "chrome-devtools-mcp@latest",
+    "packageManager": "npm",
+    "configPath": "~/.config/opencode/opencode.jsonc",
+    "configPaths": [
+      "~/.config/opencode/opencode.jsonc"
+    ],
+    "hosts": [
+      "OpenCode"
+    ],
+    "repoUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+    "docsUrl": null,
+    "installCommand": "npx -y chrome-devtools-mcp@latest",
+    "usageExample": null,
+    "authRequired": false,
+    "authMethod": null,
+    "tools": [],
+    "resources": [],
+    "prompts": [],
+    "enumerationNote": "Tools/resources not enumerated (server not queried during scan).",
+    "github": {
+      "owner": "ChromeDevTools",
+      "repo": "chrome-devtools-mcp",
+      "stars": 52489,
+      "forks": 4395,
+      "issues": 105,
+      "license": "Apache-2.0",
+      "language": "TypeScript",
+      "lastCommit": "2026-09-22T17:36:54Z",
+      "latestRelease": "chrome-devtools-mcp-v1.9.0",
+      "starsFetchedAt": "2026-09-23T02:44:57.222Z",
+      "error": null,
+      "starsReason": null,
+      "description": "Chrome DevTools for coding agents",
+      "htmlUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
+    },
+    "githubSource": "package registry (npm): chrome-devtools-mcp@latest",
+    "configSnippet": "{\n  \"mcp\": {\n    \"chrome-devtools\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"chrome-devtools-mcp@latest\",\n        \"--isolated\"\n      ],\n      \"enabled\": true\n    }\n  }\n}",
+    "evidence": {
+      "configKey": "mcp.chrome-devtools",
+      "enabled": true,
+      "envKeys": []
+    },
+    "effectiveness": {
+      "score": 80,
+      "level": "high",
+      "confidence": "high",
+      "basis": [
+        "valid server entry found in tool config",
+        "command/args declared",
+        "package page resolvable",
+        "config sample derivable from local config",
+        "last push 2026-09-22",
+        "release chrome-devtools-mcp-v1.9.0",
+        "MCP config verified against known schema",
+        "no test/demo evidence"
+      ],
+      "tested": false,
+      "testResult": null,
+      "components": {
+        "reliability": 30,
+        "documentation": 20,
+        "maintenance": 20,
+        "compatibility": 10,
+        "practical": 0,
+        "maxPossible": 100,
+        "componentsAvailable": 5
+      },
+      "framework": "v1 (reliability30+docs25+maintenance20+compat10+practical15; stars excluded)"
+    },
+    "verification": {
+      "status": "verified",
+      "sources": [
+        "config:~/.config/opencode/opencode.jsonc"
+      ],
+      "evidence": [
+        "declared in OpenCode",
+        "command/args present in config",
+        "package resolved via registry"
+      ],
+      "lastVerified": "2026-09-23T08:37:10.862Z"
+    },
+    "sources": [
+      "OpenCode: ~/.config/opencode/opencode.jsonc"
+    ],
+    "subcategories": [
+      "testing",
+      "browser automation"
+    ],
+    "descriptionInferred": true,
+    "packageUrl": "https://www.npmjs.com/package/chrome-devtools-mcp",
+    "version": "1.9.0"
+  },
+  {
+    "id": "mcp-gitnexus",
+    "name": "gitnexus",
+    "displayName": "gitnexus",
+    "category": "Other",
+    "description": "MCP server \"gitnexus\" configured in Claude Code, Codex, OpenCode via command `gitnexus.cmd`. Description inferred from local configuration — not fetched from upstream docs.",
+    "status": "configured",
+    "transport": "stdio",
+    "command": "~\\AppData\\Local\\npm-cache\\_npx\\5e786f48223a616c\\node_modules\\.bin\\gitnexus.cmd",
+    "args": [
+      "mcp"
+    ],
+    "package": null,
+    "packageManager": null,
+    "configPath": "~/.claude.json",
+    "configPaths": [
+      "~/.claude.json",
+      "~/.codex/config.toml",
+      "~/.config/opencode/opencode.jsonc"
+    ],
+    "hosts": [
+      "Claude Code",
+      "Codex",
+      "OpenCode"
+    ],
+    "repoUrl": "https://github.com/abhigyanpatwari/GitNexus",
+    "docsUrl": null,
+    "installCommand": null,
+    "usageExample": null,
+    "authRequired": false,
+    "authMethod": null,
+    "tools": [],
+    "resources": [],
+    "prompts": [],
+    "enumerationNote": "Tools/resources not enumerated (server not queried during scan).",
+    "github": {
+      "owner": "abhigyanpatwari",
+      "repo": "GitNexus",
+      "stars": 47530,
+      "forks": 5176,
+      "issues": 284,
+      "license": "NOASSERTION",
+      "language": "TypeScript",
+      "lastCommit": "2026-09-23T06:26:47Z",
+      "latestRelease": "v1.6.12",
+      "starsFetchedAt": "2026-09-23T06:54:17.857Z",
+      "error": null,
+      "starsReason": null,
+      "description": "GitNexus: The Zero-Server Code Intelligence Engine ",
+      "htmlUrl": "https://github.com/abhigyanpatwari/GitNexus"
+    },
+    "githubSource": "user-provided provenance",
+    "configSnippet": "{\"gitnexus\":{\"command\":\"C:\\\\Users\\\\Tan\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\5e786f48223a616c\\\\node_modules\\\\.bin\\\\gitnexus.cmd\",\"args\":[\"mcp\"]}}",
+    "evidence": {
+      "configKey": "mcpServers",
+      "declaredTransport": "stdio"
+    },
+    "effectiveness": {
+      "score": 70,
+      "level": "medium",
+      "confidence": "medium",
+      "basis": [
+        "valid server entry found in tool config",
+        "command/args declared",
+        "config sample derivable from local config",
+        "last push 2026-09-23",
+        "release v1.6.12",
+        "MCP config verified against known schema",
+        "no test/demo evidence"
+      ],
+      "tested": false,
+      "testResult": null,
+      "components": {
+        "reliability": 30,
+        "documentation": 10,
+        "maintenance": 20,
+        "compatibility": 10,
+        "practical": 0,
+        "maxPossible": 100,
+        "componentsAvailable": 5
+      },
+      "framework": "v1 (reliability30+docs25+maintenance20+compat10+practical15; stars excluded)"
+    },
+    "verification": {
+      "status": "verified",
+      "sources": [
+        "config:~/.claude.json",
+        "config:~/.codex/config.toml",
+        "config:~/.config/opencode/opencode.jsonc"
+      ],
+      "evidence": [
+        "declared in Claude Code, Codex, OpenCode",
+        "command/args present in config"
+      ],
+      "lastVerified": "2026-09-23T08:37:10.862Z"
+    },
+    "sources": [
+      "Claude Code: ~/.claude.json"
+    ],
+    "subcategories": [],
+    "descriptionInferred": true
+  },
+  {
+    "id": "mcp-officecli",
+    "name": "officecli",
+    "displayName": "officecli",
+    "category": "Office / Docs",
+    "description": "MCP server \"officecli\" configured in Claude Code via command `officecli.exe`. Description inferred from local configuration — not fetched from upstream docs.",
+    "status": "configured",
+    "transport": "stdio",
+    "command": "~\\AppData\\Local\\OfficeCLI\\officecli.exe",
+    "args": [
+      "mcp"
+    ],
+    "package": null,
+    "packageManager": null,
+    "configPath": "~/.claude.json",
+    "configPaths": [
+      "~/.claude.json"
+    ],
+    "hosts": [
+      "Claude Code"
+    ],
+    "repoUrl": "https://github.com/iOfficeAI/OfficeCLI",
+    "docsUrl": null,
+    "installCommand": null,
+    "usageExample": null,
+    "authRequired": false,
+    "authMethod": null,
+    "tools": [],
+    "resources": [],
+    "prompts": [],
+    "enumerationNote": "Tools/resources not enumerated (server not queried during scan).",
+    "github": {
+      "owner": "iOfficeAI",
+      "repo": "OfficeCLI",
+      "stars": 31087,
+      "forks": 2122,
+      "issues": 108,
+      "license": "Apache-2.0",
+      "language": "C#",
+      "lastCommit": "2026-09-21T20:19:02Z",
+      "latestRelease": "v1.0.152",
+      "starsFetchedAt": "2026-09-23T06:54:18.222Z",
+      "error": null,
+      "starsReason": null,
+      "description": "OfficeCLI is the first and best Office suite  purpose-built for AI agents to read, edit, and automate Word, Excel, and PowerPoint files. Free, open-source, single binary, no Office installation required.",
+      "htmlUrl": "https://github.com/iOfficeAI/OfficeCLI"
+    },
+    "githubSource": "user-provided provenance",
+    "configSnippet": "{\"officecli\":{\"command\":\"C:\\\\Users\\\\Tan\\\\AppData\\\\Local\\\\OfficeCLI\\\\officecli.exe\",\"args\":[\"mcp\"]}}",
+    "evidence": {
+      "configKey": "mcpServers",
+      "declaredTransport": "stdio"
+    },
+    "effectiveness": {
+      "score": 70,
+      "level": "medium",
+      "confidence": "medium",
+      "basis": [
+        "valid server entry found in tool config",
+        "command/args declared",
+        "config sample derivable from local config",
+        "last push 2026-09-21",
+        "release v1.0.152",
+        "MCP config verified against known schema",
+        "no test/demo evidence"
+      ],
+      "tested": false,
+      "testResult": null,
+      "components": {
+        "reliability": 30,
+        "documentation": 10,
+        "maintenance": 20,
+        "compatibility": 10,
+        "practical": 0,
+        "maxPossible": 100,
+        "componentsAvailable": 5
+      },
+      "framework": "v1 (reliability30+docs25+maintenance20+compat10+practical15; stars excluded)"
+    },
+    "verification": {
+      "status": "verified",
+      "sources": [
+        "config:~/.claude.json"
+      ],
+      "evidence": [
+        "declared in Claude Code",
+        "command/args present in config"
+      ],
+      "lastVerified": "2026-09-23T08:37:10.862Z"
+    },
+    "sources": [
+      "Claude Code: ~/.claude.json"
+    ],
+    "subcategories": [],
+    "descriptionInferred": true
+  },
+  {
+    "id": "mcp-word-document-server",
+    "name": "word-document-server",
+    "displayName": "word-document-server",
+    "category": "Office / Docs",
+    "description": "MCP server \"word-document-server\" configured in OpenCode via command `python`. Description inferred from local configuration — not fetched from upstream docs.",
+    "status": "configured",
+    "transport": "stdio",
+    "command": "python",
+    "args": [
+      "~\\AppData\\Local\\Office-Word-MCP-Server\\word_mcp_server.py"
+    ],
+    "package": null,
+    "packageManager": null,
+    "configPath": "~/.config/opencode/opencode.jsonc",
+    "configPaths": [
+      "~/.config/opencode/opencode.jsonc"
+    ],
+    "hosts": [
+      "OpenCode"
+    ],
+    "repoUrl": "https://github.com/GongRzhe/Office-Word-MCP-Server",
+    "docsUrl": null,
+    "installCommand": null,
+    "usageExample": null,
+    "authRequired": false,
+    "authMethod": null,
+    "tools": [],
+    "resources": [],
+    "prompts": [],
+    "enumerationNote": "Tools/resources not enumerated (server not queried during scan).",
+    "github": {
+      "owner": "GongRzhe",
+      "repo": "Office-Word-MCP-Server",
+      "stars": 2110,
+      "forks": 287,
+      "issues": 66,
+      "license": "MIT",
+      "language": "Python",
+      "lastCommit": "2025-12-31T13:23:05Z",
+      "latestRelease": "v1.1.11",
+      "starsFetchedAt": "2026-09-23T06:54:18.620Z",
+      "error": null,
+      "starsReason": null,
+      "description": "A Model Context Protocol (MCP) server for creating, reading, and manipulating Microsoft Word documents. This server enables AI assistants to work with Word documents through a standardized interface, providing rich document editing capabilities.",
+      "htmlUrl": "https://github.com/GongRzhe/Office-Word-MCP-Server"
+    },
+    "githubSource": "user-provided provenance",
+    "configSnippet": "{\n  \"mcp\": {\n    \"word-document-server\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"python\",\n        \"C:\\\\Users\\\\Tan\\\\AppData\\\\Local\\\\Office-Word-MCP-Server\\\\word_mcp_server.py\"\n      ]\n    }\n  }\n}",
+    "evidence": {
+      "configKey": "mcp.word-document-server",
+      "enabled": true,
+      "envKeys": []
+    },
+    "effectiveness": {
+      "score": 60,
+      "level": "medium",
+      "confidence": "medium",
+      "basis": [
+        "valid server entry found in tool config",
+        "command/args declared",
+        "config sample derivable from local config",
+        "last push 2025-12-31",
+        "release v1.1.11",
+        "MCP config verified against known schema",
+        "no test/demo evidence"
+      ],
+      "tested": false,
+      "testResult": null,
+      "components": {
+        "reliability": 30,
+        "documentation": 10,
+        "maintenance": 10,
+        "compatibility": 10,
+        "practical": 0,
+        "maxPossible": 100,
+        "componentsAvailable": 5
+      },
+      "framework": "v1 (reliability30+docs25+maintenance20+compat10+practical15; stars excluded)"
+    },
+    "verification": {
+      "status": "verified",
+      "sources": [
+        "config:~/.config/opencode/opencode.jsonc"
+      ],
+      "evidence": [
+        "declared in OpenCode",
+        "command/args present in config"
+      ],
+      "lastVerified": "2026-09-23T08:37:10.862Z"
+    },
+    "sources": [
+      "OpenCode: ~/.config/opencode/opencode.jsonc"
+    ],
+    "subcategories": [
+      "technical documentation"
+    ],
+    "descriptionInferred": true
+  }
+]

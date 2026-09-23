@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Development",
+    "skills": 39,
+    "mcp": 0,
+    "total": 39,
+    "verified": 39
+  },
+  {
+    "name": "AI Agent",
+    "skills": 26,
+    "mcp": 0,
+    "total": 26,
+    "verified": 26
+  },
+  {
+    "name": "Browser / Web",
+    "skills": 3,
+    "mcp": 1,
+    "total": 4,
+    "verified": 4
+  },
+  {
+    "name": "Git / GitHub",
+    "skills": 4,
+    "mcp": 0,
+    "total": 4,
+    "verified": 4
+  },
+  {
+    "name": "DevOps / Infrastructure",
+    "skills": 3,
+    "mcp": 0,
+    "total": 3,
+    "verified": 3
+  },
+  {
+    "name": "Security",
+    "skills": 3,
+    "mcp": 0,
+    "total": 3,
+    "verified": 3
+  },
+  {
+    "name": "Office / Docs",
+    "skills": 1,
+    "mcp": 2,
+    "total": 3,
+    "verified": 3
+  },
+  {
+    "name": "Other",
+    "skills": 1,
+    "mcp": 1,
+    "total": 2,
+    "verified": 2
+  },
+  {
+    "name": "UI/UX",
+    "skills": 1,
+    "mcp": 0,
+    "total": 1,
+    "verified": 1
+  },
+  {
+    "name": "3D / Creative",
+    "skills": 0,
+    "mcp": 1,
+    "total": 1,
+    "verified": 1
+  }
+]
