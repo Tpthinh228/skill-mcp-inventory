@@ -24,12 +24,10 @@ Hoặc một lệnh: `npm start`.
 | `npm run serve` | Static server + `POST /api/rescan` (nút Refresh trong UI) |
 | `npm test` | `node --test` — discovery, security, data-integrity, github fallback |
 
-## Nguồn dữ liệu (không bịa)
+## Nguồn dữ liệu
 
 - **Skills**: `~/.agents/skills`, `~/.claude/skills`, `~/.codex/skills`, `~/.config/opencode/skills`, cache packages opencode (superpowers, ponytail), project-local roots.
 - **MCP**: `~/.claude.json`, `~/.codex/config.toml`, `~/.config/opencode/opencode.json(c)`, Claude Desktop config, project `.mcp.json`/`mcp.json`.
-- **Stars/repo**: GitHub API (unauthenticated, hoặc `GITHUB_TOKEN` nếu có ở env — **không bao giờ** ghi token vào data). Repo chỉ được resolve từ: (a) git source trong config, (b) `repository` field từ npm/pypi registry.
-- Không xác minh được → `stars = null` + lý do (`starsReason`), hiển thị "★ unknown".
 
 ## Bảng điều khiển
 
@@ -64,6 +62,4 @@ skill-mcp-inventory/
 ├── data/             # skills.json, mcp.json, categories.json, sources.json, meta.json + caches
 ├── public/           # index.html, app.js, styles.css (+ data/ copy khi build)
 ├── tests/            # discovery, security, data-integrity, github
-├── SCHEMA.md         # định nghĩa record
-└── INVENTORY_REPORT.md
 ```
