@@ -774,7 +774,7 @@ function renderOverview() {
   const maxTotal = Math.max(1, ...state.categories.map(x => x.total));
   $('#ov-cats').replaceChildren(...state.categories.map(c2 =>
     el('tr', { tabindex: '0', onclick: () => go('categories'), onkeydown: e => e.key === 'Enter' && go('categories') },
-      el('td', { class: 'name', text: catLabel(c2.name) }),
+      el('td', { class: 'name', text: c2.name }),
       el('td', { class: 'mono', text: String(c2.skills) }),
       el('td', { class: 'mono', text: String(c2.mcp) }),
       el('td', { class: 'mono', text: `${c2.total} / ${maxTotal}` }),
