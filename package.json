@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Skill & MCP Inventory Dashboard — local discovery + static dashboard",
+  "description": "Skill & MCP Inventory Dashboard — static dashboard over hand-edited JSON",
   "scripts": {
     "recount": "node scripts/recount.mjs",
     "test": "node --test tests/*.test.mjs",

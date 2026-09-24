@@ -30,6 +30,12 @@ Stars/forks tự đồng bộ live trên client mỗi 3 phút (GitHub API, ETag)
 
 Overview · Skills · MCP · Categories · Repositories · CLI — search (debounce 150ms), filter (category/source/has-GitHub/verified/tested), sort (name/stars/effectiveness/updated), detail drawer (focus trap, Esc), copy install/config, empty state, rate-limit banner, responsive (desktop sidebar → mobile top-nav).
 
+Giao diện có 2 ngôn ngữ VI/EN (nút góc header): mục đích skill dịch trong `public/data/purpose-vi.json` (kỹ thuật giữ tiếng Anh); khi VI, cột "Mục đích" bảng cũng dùng bản dịch.
+
+## Deploy
+
+`git push` → GitHub Actions (`.github/workflows/pages.yml`) upload `public/` lên GitHub Pages.
+
 ## Hiệu quả (effectiveness)
 
 Framework v1 (field do dữ liệu entry mang theo, **stars không bao giờ là input**):
@@ -53,10 +59,10 @@ Component Maintenance chỉ tính khi có repo activity verified; thiếu bằng
 
 ```
 skill-mcp-inventory/
-├── README.md
-├── package.json
-├── scripts/          # serve, recount, lib
-├── public/           # index.html, app.js, styles.css
-│   └── data/         # skills.json, mcp.json, categories.json, sources.json, meta.json, purpose-vi.json
-└── tests/            # data-integrity, security
+├── README.md · AUDIT_REPORT.md · package.json
+├── .github/workflows/  # pages.yml (deploy)
+├── scripts/            # serve, recount, lib
+├── public/             # index.html, app.js, styles.css, logos/ (sticker)
+│   └── data/           # skills.json, mcp.json, categories.json, sources.json, meta.json, purpose-vi.json
+└── tests/              # data-integrity, security, helpers
 ```
