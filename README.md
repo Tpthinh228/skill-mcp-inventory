@@ -26,6 +26,30 @@ npm test                # data-integrity + security
 
 Stars/forks tự đồng bộ live trên client mỗi 3 phút (GitHub API, ETag).
 
+## Lượt truy cập (Firebase)
+
+Sidebar hiển thị tổng lượt mở trang (Realtime Database, Spark free):
+
+1. [Firebase Console](https://console.firebase.google.com) → **Add project** (bỏ qua Analytics) → **Realtime Database** → **Create database** (chọn region bất kỳ) → mode **Test mode** tạm thời.
+2. **Project settings** → Your apps → **Web** (`</>`) → đăng ký app → copy config → dán vào `public/firebase-config.js`.
+3. **Rules** (Realtime Database → Rules) — chỉ cho phép +1, không xoá/ghi tuỳ ý:
+
+```json
+{
+  "rules": {
+    "visitors/count": {
+      ".read": true,
+      ".write": "!data.exists() || (newData.isNumber() && newData.val() === data.val() + 1)"
+    }
+  }
+}
+```
+
+4. `npm run serve` → kiểm tra số trong sidebar hiện lên rồi **Publish** rules.
+5. Chưa cấu hình / offline → hiện `—`, không lỗi.
+
+Config web Firebase là public theo thiết kế — Security Rules mới là lớp bảo vệ. Ceiling: rules chặn tăng >1 mỗi lần ghi nhưng không chặn spam nhiều request; nếu cần hạn chế rate, thêm Cloudflare/bỏ qua tuỳ mức độ.
+
 ## Bảng điều khiển
 
 Overview · Skills · MCP · Categories · Repositories · CLI — search (debounce 150ms), filter (category/source/has-GitHub/verified/tested), sort (name/stars/effectiveness/updated), detail drawer (focus trap, Esc), copy install/config, empty state, rate-limit banner, responsive (desktop sidebar → mobile top-nav).
@@ -64,5 +88,6 @@ skill-mcp-inventory/
 ├── scripts/            # serve, recount, lib
 ├── public/             # index.html, app.js, styles.css, logos/ (sticker)
 │   └── data/           # skills.json, mcp.json, categories.json, sources.json, meta.json, purpose-vi.json
+│   └── firebase-config.js  # config Firebase (điền tay, xem mục "Lượt truy cập")
 └── tests/              # data-integrity, security, helpers
 ```

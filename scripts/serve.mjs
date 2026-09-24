@@ -36,7 +36,7 @@ const server = http.createServer((req, res) => {
       'Content-Type': MIME[path.extname(file)] || 'application/octet-stream',
       'Cache-Control': 'no-cache',
       'X-Content-Type-Options': 'nosniff',
-      'Content-Security-Policy': "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https://api.github.com; base-uri 'none'; form-action 'none'",
+      'Content-Security-Policy': "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.gstatic.com; base-uri 'none'; form-action 'none'; connect-src 'self' https://api.github.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app",
     }).end(buf);
   });
 });

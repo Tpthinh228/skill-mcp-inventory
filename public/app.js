@@ -9,6 +9,8 @@ const I18N = {
     'nav.categories': 'Danh mục',
     'nav.repos': 'Kho mã nguồn',
     'nav.cli': 'CLI',
+    'visits.label': 'Lượt truy cập',
+    'visits.aria': 'Lượt truy cập',
     'cli.intro': 'Lệnh cài đặt dòng lệnh cho các AI coding CLI. Lấy từ tài liệu chính thức — chọn lệnh khớp OS của bạn.',
     'cli.docs': 'Tài liệu',
     'cli.copy': 'Sao chép',
@@ -213,6 +215,8 @@ const I18N = {
     'nav.categories': 'Categories',
     'nav.repos': 'Repositories',
     'nav.cli': 'CLI',
+    'visits.label': 'Visits',
+    'visits.aria': 'Total visits',
     'cli.intro': 'Install commands for AI coding CLIs. Taken from official docs — pick the command that matches your OS.',
     'cli.docs': 'Docs',
     'cli.copy': 'Copy',
@@ -1404,6 +1408,30 @@ function bind() {
   $('#overlay').addEventListener('click', closeDrawer);
 }
 
+// ---------- visits counter (Firebase RTDB) ----------
+let visitsCount = null;
+function renderVisits() {
+  const n = $('#visit-count');
+  if (n) n.textContent = visitsCount == null ? '—' : visitsCount.toLocaleString('en-US');
+}
+async function initVisits() {
+  try {
+    const { firebaseConfig } = await import('./firebase-config.js');
+    if (!firebaseConfig?.apiKey || !firebaseConfig?.databaseURL) return;
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
+    const { getDatabase, ref, onValue, runTransaction } =
+      await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js');
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const countRef = ref(db, 'visitors/count');
+    await runTransaction(countRef, n => (n ?? 0) + 1);
+    onValue(countRef, snap => {
+      visitsCount = snap.val();
+      renderVisits();
+    });
+  } catch { /* offline / not configured → stay "—" */ }
+}
+
 document.documentElement.lang = lang;
 $$('.lang-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
 applyStaticI18n();
@@ -1411,3 +1439,4 @@ bind();
 tickClock();
 setInterval(tickClock, 1000);
 load();
+initVisits();
