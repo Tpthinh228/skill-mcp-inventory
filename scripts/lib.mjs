@@ -3,7 +3,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const DATA_DIR = path.join(ROOT, 'data');
 
 export function readJson(p, fallback = null) {
   try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return fallback; }
@@ -53,8 +52,13 @@ export function redactHome(p) {
   if (!p || typeof p !== 'string') return p;
   const home = process.env.USERPROFILE || process.env.HOME || '';
   let out = p;
-  if (home) out = out.split(home).join('~');
-  return out.replace(/\/home\/[^/]+/g, '~').replace(/C:\\Users\\[^\\]+/gi, '~');
+  if (home) {
+    out = out.split(home).join('~');
+    out = out.split(home.replace(/\\/g, '\\\\')).join('~');
+  }
+  return out
+    .replace(/\/home\/[^/\s"']+/g, '~')
+    .replace(/C:\\+Users\\+[^\\/"']+/gi, '~');
 }
 
 const SECRET_KEY = /(^|_)(api[_-]?key|key|token|secret|password|passwd|auth|authorization|credential|cookie|session)s?$/i;

@@ -20,7 +20,7 @@ const I18N = {
     'copied': 'Đã sao chép ✓',
     'copy.failed': 'Sao chép thất bại — chọn thủ công',
     'banner.loading': 'Đang quét… tải dữ liệu kiểm kê.',
-    'banner.error': 'Không tải được dữ liệu kiểm kê: ${e}. Chạy npm run inventory:all',
+    'banner.error': 'Không tải được dữ liệu kiểm kê: ${e}. Kiểm tra public/data/*.json',
     'banner.rate': 'Không lấy được metadata GitHub (giới hạn tốc độ). Đồng bộ gần nhất: ${d}',
     'banner.scanWarn': '${n} cảnh báo quét.',
     'panel.categories': 'Danh mục',
@@ -91,11 +91,16 @@ const I18N = {
     'kpi.unver': 'Hạng mục chưa xác minh',
     'kpi.unver.hint': 'một phần + chưa xác minh',
     'empty.skills': 'Chưa phát hiện kỹ năng nào',
-    'empty.skillsHint': 'Chạy quét: npm run inventory:scan',
+    'empty.skillsHint': 'Chưa có skill — thêm entry vào public/data/skills.json rồi chạy npm run recount',
     'empty.mcp': 'Chưa phát hiện máy chủ MCP',
-    'empty.mcpHint': 'Chạy quét: npm run inventory:scan',
+    'empty.mcpHint': 'Chưa có MCP — thêm entry vào public/data/mcp.json rồi chạy npm run recount',
     'empty.repos': 'Không có kho mã nguồn khớp',
     'empty.reposHint': 'Chỉ liệt kê repo khi resolve được từ config hoặc package registry.',
+    'empty.cli': 'Không có CLI khớp',
+    'empty.cliHint': 'Xóa hoặc đổi từ khóa tìm kiếm.',
+    'empty.cats': 'Không có danh mục khớp',
+    'empty.catsHint': 'Xóa hoặc đổi từ khóa tìm kiếm.',
+    'cat.barA11y': '${s} kỹ năng, ${m} MCP',
     'cat.meta': '${t} hạng mục · ${s} kỹ năng · ${m} MCP · ${v} đã xác minh',
     'cat.viewSkills': 'Xem kỹ năng',
     'cat.viewMcp': 'Xem MCP',
@@ -174,7 +179,6 @@ const I18N = {
     'openDetails': 'Mở chi tiết ${n}',
     'openRepo': 'Mở ${n} trên GitHub',
     'searchHint': 'Nhập để tìm…',
-    'meta.sync': 'đồng bộ GitHub: ${d}',
     'level.high': 'cao',
     'level.medium': 'trung bình',
     'level.low': 'thấp',
@@ -220,7 +224,7 @@ const I18N = {
     'copied': 'Copied ✓',
     'copy.failed': 'Copy failed — select manually',
     'banner.loading': 'Scanning… loading inventory data.',
-    'banner.error': 'Inventory data unavailable: ${e}. Run npm run inventory:all',
+    'banner.error': 'Inventory data unavailable: ${e}. Check public/data/*.json',
     'banner.rate': 'GitHub metadata unavailable (rate limit). Last successful sync: ${d}',
     'banner.scanWarn': '${n} scan warning(s).',
     'panel.categories': 'Categories',
@@ -291,11 +295,16 @@ const I18N = {
     'kpi.unver': 'Unverified items',
     'kpi.unver.hint': 'partial + unverified',
     'empty.skills': 'No skills discovered',
-    'empty.skillsHint': 'Run inventory scan: npm run inventory:scan',
+    'empty.skillsHint': 'No skills yet — add an entry to public/data/skills.json then run npm run recount',
     'empty.mcp': 'No MCP servers discovered',
-    'empty.mcpHint': 'Run inventory scan: npm run inventory:scan',
+    'empty.mcpHint': 'No MCP yet — add an entry to public/data/mcp.json then run npm run recount',
     'empty.repos': 'No repositories match',
     'empty.reposHint': 'Repos are only listed when resolved from config or package registry.',
+    'empty.cli': 'No CLI matches',
+    'empty.cliHint': 'Clear or change the search query.',
+    'empty.cats': 'No categories match',
+    'empty.catsHint': 'Clear or change the search query.',
+    'cat.barA11y': '${s} skills, ${m} MCP',
     'cat.meta': '${t} items · ${s} skills · ${m} MCP · ${v} verified',
     'cat.viewSkills': 'View skills',
     'cat.viewMcp': 'View MCP',
@@ -392,10 +401,10 @@ function setLang(next) {
   applyStaticI18n();
   closeDrawer();
   renderAll();
+  tickClock();
 }
 function catLabel(name) {
-  if (!name) return name;
-  return lang === 'vi' ? t('cat.' + name) : name;
+  return name;
 }
 function levelLabel(level) {
   if (!level) return level;
@@ -464,7 +473,10 @@ function fmtStars(n) {
 }
 function fmtDate(iso) {
   if (!iso) return '—';
-  try { return new Date(iso).toISOString().slice(0, 16).replace('T', ' '); } catch { return '—'; }
+  try {
+    const d = new Date(iso);
+    return (lang === 'vi' ? new Date(d.getTime() + 7 * 3600e3) : d).toISOString().slice(0, 16).replace('T', ' ');
+  } catch { return '—'; }
 }
 function badge(text, cls = '', icon = null) {
   return el('span', { class: `badge ${cls}`.trim() },
@@ -494,7 +506,12 @@ function linkBtn(label, href, attrs = {}) {
   if (!href) return null;
   const safe = sanitizeUrl(href);
   if (!safe) return null;
-  return el('a', { class: 'btn btn-sm', href: safe, target: '_blank', rel: 'noopener noreferrer', ...attrs }, label);
+  const { onclick, ...rest } = attrs;
+  return el('a', {
+    class: 'btn btn-sm', href: safe, target: '_blank', rel: 'noopener noreferrer',
+    onclick: e => { e.stopPropagation(); onclick?.(e); },
+    ...rest,
+  }, label);
 }
 function sanitizeUrl(href) {
   try {
@@ -532,12 +549,9 @@ function matchesQuery(q, ...parts) {
 function purposeText(item, kind) {
   const cap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
   const clean = s => cap((s || '').replace(/^["'>\s]+/, '').replace(/\s+/g, ' ').trim());
-  if (lang === 'vi') {
-    if (kind === 'skill' && state.purposeVi?.[item.id]) return clean(state.purposeVi[item.id]);
-    if (kind === 'mcp' && item.descriptionInferred) {
-      const pkg = item.package ? ` (gói ${item.package})` : '';
-      return `Máy chủ MCP "${item.name}"${pkg} được cấu hình${item.command ? ` qua lệnh ${item.command}` : ''}. Mô tả suy ra từ cấu hình cục bộ — không lấy từ tài liệu gốc.`;
-    }
+  if (kind === 'mcp' && item.descriptionInferred) {
+    const pkg = item.package ? ` (package ${item.package})` : '';
+    return `MCP server "${item.name}"${pkg} configured${item.command ? ` via command ${item.command}` : ''}. Description inferred from local config — not taken from upstream docs.`;
   }
   const ghDesc = item.github?.description;
   if (kind === 'skill' && ghDesc) return clean(ghDesc);
@@ -546,32 +560,27 @@ function purposeText(item, kind) {
 }
 
 function purposeSummary(item) {
-  const full = purposeText(item, 'skill') || '—';
-  const m = full.match(/^(.{10,140}?[.!?])(\s|$)/);
+  const full = (lang === 'vi' && state.purposeVi[item.id])
+    ? state.purposeVi[item.id]
+    : (purposeText(item, 'skill') || '—');
+  const flat = full.replace(/\s+/g, ' ').trim();
+  const m = flat.match(/^(.{10,140}?[.!?])(\s|$)/);
   if (m) return m[1];
-  return full.length > 140 ? full.slice(0, 137).trimEnd() + '…' : full;
+  return flat.length > 140 ? flat.slice(0, 137).trimEnd() + '…' : flat;
 }
 
 function purposeDetail(item, kind) {
   const clean = s => (s || '').replace(/\s+/g, ' ').trim();
+  if (kind === 'skill' && lang === 'vi' && state.purposeVi[item.id]) {
+    return (state.purposeVi[item.id] || '').replace(/[ \t]+/g, ' ').trim();
+  }
   const outer = clean(kind === 'skill' ? purposeSummary(item) : purposeText(item, kind)).toLowerCase();
   const parts = [];
   if (kind === 'skill') {
-    if (lang === 'vi') {
-      const vi = clean(state.purposeVi?.[item.id]);
-      if (vi) parts.push(vi);
-      else {
-        const gh = clean(item.github?.description);
-        const desc = clean(item.description);
-        if (gh) parts.push(gh);
-        if (desc && desc.toLowerCase() !== gh.toLowerCase()) parts.push(desc);
-      }
-    } else {
-      const gh = clean(item.github?.description);
-      const desc = clean(item.description);
-      if (gh) parts.push(gh);
-      if (desc && desc.toLowerCase() !== gh.toLowerCase()) parts.push(desc);
-    }
+    const gh = clean(item.github?.description);
+    const desc = clean(item.description);
+    if (gh) parts.push(gh);
+    if (desc && desc.toLowerCase() !== gh.toLowerCase()) parts.push(desc);
   } else {
     const t = clean(purposeText(item, 'mcp'));
     if (t) parts.push(t);
@@ -654,14 +663,15 @@ async function syncGithubLive() {
       byRepo.get(key).push(item);
     }
     let updated = 0;
+    let completed = true;
     for (const [key, items] of byRepo) {
       const headers = { Accept: 'application/vnd.github+json' };
       if (ghLive.etags[key]) headers['If-None-Match'] = ghLive.etags[key];
       let res;
       try {
         res = await fetch(`https://api.github.com/repos/${key}`, { headers });
-      } catch { break; }
-      if (res.status === 403 || res.status === 429) { ghLive.limited = true; break; }
+      } catch { completed = false; break; }
+      if (res.status === 403 || res.status === 429) { ghLive.limited = true; completed = false; break; }
       if (res.status === 304) continue;
       if (!res.ok) continue;
       const etag = res.headers.get('etag');
@@ -684,9 +694,9 @@ async function syncGithubLive() {
       saveGhLive(key, etag || null, patch);
       updated++;
     }
-    if (updated) {
-      if (state.meta) state.meta.lastGithubSync = new Date().toISOString();
-      renderAll();
+    if ((updated || completed) && state.meta) {
+      state.meta.lastGithubSync = new Date().toISOString();
+      if (updated) renderAll();
     }
   } finally {
     ghLive.busy = false;
@@ -696,7 +706,6 @@ async function syncGithubLive() {
 // ---------- render ----------
 function renderAll() {
   renderBanner();
-  renderMeta();
   renderOverview();
   populateFilters();
   renderSkills();
@@ -706,9 +715,9 @@ function renderAll() {
   renderCli();
 }
 
-function renderMeta() {
-  const m = state.meta;
-  $('#sync-info').textContent = m ? t('meta.sync', { d: fmtDate(m.lastGithubSync) }) : '';
+function tickClock() {
+  const n = lang === 'vi' ? new Date(Date.now() + 7 * 3600e3) : new Date();
+  $('#clock').textContent = n.toISOString().slice(0, 19).replace('T', ' ');
 }
 
 function renderBanner() {
@@ -750,7 +759,7 @@ function renderOverview() {
 
   const maxTotal = Math.max(1, ...state.categories.map(x => x.total));
   $('#ov-cats').replaceChildren(...state.categories.map(c2 =>
-    el('tr', { tabindex: '0', onclick: () => go('categories'), onkeydown: e => e.key === 'Enter' && go('categories') },
+    el('tr', { tabindex: '0', onclick: () => go('categories'), onkeydown: e => e.key === 'Enter' && go('categories'), 'aria-label': t('nav.categories') + ': ' + c2.name },
       el('td', { class: 'name', text: c2.name }),
       el('td', { class: 'mono', text: String(c2.skills) }),
       el('td', { class: 'mono', text: String(c2.mcp) }),
@@ -792,8 +801,6 @@ function readFilters(scope) {
     const key = input.dataset.filter;
     f[key] = input.type === 'checkbox' ? input.checked : input.value;
   });
-  const sortSel = $('[data-sort]', root);
-  if (sortSel) state.sorts[scope] = sortSel.value;
   return f;
 }
 
@@ -843,6 +850,15 @@ function linksCell(item) {
 }
 
 // ---------- lists ----------
+const SORT_DIR = { name: 'ascending', category: 'ascending', status: 'ascending', stars: 'descending', effectiveness: 'descending', updated: 'descending' };
+function markSort(scope, key) {
+  const view = $(`#view-${scope}`);
+  if (!view) return;
+  $$('th[data-th]', view).forEach(th => {
+    if (th.dataset.th === key) th.setAttribute('aria-sort', SORT_DIR[key] || 'ascending');
+    else th.removeAttribute('aria-sort');
+  });
+}
 function isExpanded(key) {
   return !!state.query || state.expanded.has(key);
 }
@@ -973,6 +989,7 @@ function renderSkills() {
   empty.replaceChildren();
   if (!state.loading && !state.loadError && rows.length === 0)
     empty.append(emptyState(t('empty.skills'), t('empty.skillsHint')));
+  markSort('skills', state.sorts.skills);
 }
 
 function renderMcp() {
@@ -995,16 +1012,27 @@ function renderMcp() {
   empty.replaceChildren();
   if (!state.loading && !state.loadError && rows.length === 0)
     empty.append(emptyState(t('empty.mcp'), t('empty.mcpHint')));
+  markSort('mcp', state.sorts.mcp);
 }
 
 function renderCategories() {
-  $('#cat-grid').replaceChildren(...state.categories.map(c =>
-    el('div', { class: 'card' },
+  const items = state.categories.filter(c =>
+    matchesQuery(state.query, c.name, catLabel(c.name)));
+  const grid = $('#cat-grid');
+  if (!items.length) {
+    grid.replaceChildren(emptyState(t('empty.cats'), t('empty.catsHint')));
+    return;
+  }
+  grid.replaceChildren(...items.map(c =>
+    el('div', { class: 'card cat-card' },
       el('h3', { text: catLabel(c.name) }),
       el('div', { class: 'meta' }, t('cat.meta', { t: c.total, s: c.skills, m: c.mcp, v: c.verified })),
-      el('div', { class: 'cat-bar', role: 'img', 'aria-label': `${c.skills} / ${c.mcp}` },
-        el('span', { class: 's', style: `width:${(c.skills / c.total) * 100}%` }),
-        el('span', { class: 'm', style: `width:${(c.mcp / c.total) * 100}%` })),
+      el('div', { class: 'cat-bar', role: 'img', 'aria-label': `${t('cat.barA11y', { s: c.skills, m: c.mcp })}` },
+        el('span', { class: 's', style: `width:${(c.skills / c.total) * 100}%`, title: `${t('th.skills')}: ${c.skills}` }),
+        el('span', { class: 'm', style: `width:${(c.mcp / c.total) * 100}%`, title: `MCP: ${c.mcp}` })),
+      el('div', { class: 'cat-legend mono', 'aria-hidden': 'true' },
+        el('span', { class: 'lg s' }, `${t('th.skills')} ${c.skills}`),
+        el('span', { class: 'lg m' }, `MCP ${c.mcp}`)),
       el('div', { class: 'row-actions' },
         el('button', {
           class: 'btn btn-sm', type: 'button',
@@ -1057,16 +1085,20 @@ function renderRepos() {
   empty.replaceChildren();
   if (!state.loading && !state.loadError && filtered.length === 0)
     empty.append(emptyState(t('empty.repos'), t('empty.reposHint')));
+  markSort('repos', sortKey);
 }
 
 // ---------- drawer ----------
 let lastFocus = null;
+let drawerHideTimer = 0;
 function openDrawer(kind, item) {
   lastFocus = document.activeElement;
   const drawer = $('#drawer');
   const overlay = $('#overlay');
+  clearTimeout(drawerHideTimer);
   drawer.hidden = false; overlay.hidden = false;
-  requestAnimationFrame(() => { drawer.classList.add('open'); overlay.classList.add('open'); });
+  void drawer.offsetWidth;
+  drawer.classList.add('open'); overlay.classList.add('open');
   $('#drawer-title').textContent = item.displayName || item.name;
   $('#drawer-body').replaceChildren(...drawerSections(kind, item));
   $('#drawer-close').focus();
@@ -1078,7 +1110,8 @@ function closeDrawer() {
   if (drawer.hidden) return;
   drawer.classList.remove('open'); overlay.classList.remove('open');
   document.removeEventListener('keydown', drawerKeys);
-  setTimeout(() => { drawer.hidden = true; overlay.hidden = true; }, 180);
+  clearTimeout(drawerHideTimer);
+  drawerHideTimer = setTimeout(() => { drawer.hidden = true; overlay.hidden = true; }, 180);
   if (lastFocus?.focus) lastFocus.focus();
 }
 function drawerKeys(e) {
@@ -1266,16 +1299,6 @@ const CLIS = [
       ['npm', 'npm install -g @anthropic-ai/claude-code'],
     ],
   },
-  {
-    id: 'aider',
-    name: 'Aider',
-    logo: 'aider.svg',
-    bin: 'aider',
-    docs: 'https://aider.chat',
-    cmds: [
-      ['pip', 'python -m pip install aider-install && aider-install'],
-    ],
-  },
 ];
 
 function cliLogo(file, name) {
@@ -1283,7 +1306,7 @@ function cliLogo(file, name) {
   if (!file) return fb;
   const img = el('img', {
     class: 'cli-logo', src: `logos/${file}`, alt: '',
-    width: '24', height: '24', loading: 'lazy', decoding: 'async',
+    width: '28', height: '28', loading: 'lazy', decoding: 'async',
   });
   img.addEventListener('error', () => img.replaceWith(fb));
   return img;
@@ -1292,24 +1315,34 @@ function cliLogo(file, name) {
 function renderCli() {
   const root = $('#cli-grid');
   if (!root) return;
-  root.replaceChildren(...CLIS.map(c => el('div', { class: 'card' },
+  const q = state.query;
+  const items = CLIS.filter(c =>
+    matchesQuery(q, c.name, c.bin, c.id, c.note, c.noteEn, ...c.cmds.flat()));
+  if (!items.length) {
+    root.replaceChildren(emptyState(t('empty.cli'), t('empty.cliHint')));
+    return;
+  }
+  root.replaceChildren(...items.map(c => el('article', { class: 'card cli-card' },
     el('div', { class: 'cli-head' },
       cliLogo(c.logo, c.name),
-      el('h3', { text: c.name })),
+      el('div', { class: 'cli-title' },
+        el('h3', { text: c.name }),
+        el('code', { class: 'cli-bin mono', title: `${t('cli.bin')}${c.bin}`, text: c.bin })),
+      linkBtn(t('cli.docs'), c.docs, { class: 'btn btn-sm cli-docs' })),
     ...c.cmds.map(([label, cmd]) => el('div', { class: 'cli-cmd' },
       el('div', { class: 'cli-cmd-label mono', text: label }),
-      el('pre', { class: 'snippet', text: cmd }),
-      el('div', { class: 'row-actions' },
+      el('div', { class: 'cli-cmd-row' },
+        el('pre', { class: 'snippet cli-snippet', text: cmd }),
         el('button', {
-          class: 'btn btn-sm', type: 'button',
+          class: 'btn btn-sm cli-copy', type: 'button',
+          'aria-label': `${t('cli.copy')}: ${cmd}`,
           onclick: e => copyText(cmd, e.target),
         }, t('cli.copy'))))),
-    c.note ? el('p', { class: 'meta dim', text: lang === 'vi' ? c.note : (c.noteEn || c.note), style: 'margin:8px 0 0' }) : null,
-    el('div', { class: 'row-actions' },
-      el('span', { class: 'meta mono dim', text: `${t('cli.bin')}${c.bin}` }),
-      linkBtn(t('cli.docs'), c.docs)))));
+    c.note ? el('p', {
+      class: 'cli-note',
+      text: lang === 'vi' ? c.note : (c.noteEn || c.note),
+    }) : null)));
 }
-
 // ---------- nav ----------
 function go(view) {
   state.view = view;
@@ -1320,6 +1353,9 @@ function go(view) {
     if (!active) b.removeAttribute('aria-current');
   });
   if (view === 'repos') renderRepos();
+  if (view === 'categories') renderCategories();
+  const h = $(`#view-${view} .view-title`);
+  if (h) h.focus?.({ preventScroll: true });
 }
 function setFilter(scope, key, value) {
   const root = $(`.filters[data-scope="${scope}"]`);
@@ -1335,14 +1371,18 @@ function bind() {
   }));
   const onQuery = debounce(v => {
     state.query = v;
-    renderSkills(); renderMcp(); renderRepos();
+    renderSkills(); renderMcp(); renderRepos(); renderCli(); renderCategories();
   }, 150);
   $('#global-search').addEventListener('input', e => onQuery(e.target.value));
 
   for (const scope of ['skills', 'mcp', 'repos']) {
     const root = $(`.filters[data-scope="${scope}"]`);
     if (!root) continue;
-    root.addEventListener('change', () => {
+    root.addEventListener('change', e => {
+      if (e.target.matches('[data-sort]')) {
+        state.sorts[scope] = e.target.value;
+        markSort(scope, state.sorts[scope]);
+      }
       if (scope === 'skills') renderSkills();
       else if (scope === 'mcp') renderMcp();
       else renderRepos();
@@ -1368,4 +1408,6 @@ document.documentElement.lang = lang;
 $$('.lang-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
 applyStaticI18n();
 bind();
+tickClock();
+setInterval(tickClock, 1000);
 load();

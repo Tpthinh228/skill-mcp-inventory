@@ -93,7 +93,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -111,7 +111,7 @@
     "purpose": "MUST USE when user wants to 调研/research/搜索/search/查/找/look up anything on the internet — e",
     "description": "MUST USE when user wants to 调研/research/搜索/search/查/找/look up anything on the internet — e.g. 全网调研 X / 帮我调研一下 X / 查一下 X / 搜搜 X / 看看大家怎么评价 X / X 上有什么讨论 / research this topic。  Also MUST USE when user mentions any platform or shares any URL/链接: 小红书/xiaohongshu/xhs, Twitter/推特/X, B站/bilibili, Reddit, Facebook, Instagram, V2EX, LinkedIn/领英/Boss直聘/招聘/求职/jobs, YouTube, GitHub code search, 小宇宙播客, 雪球/股票行情, RSS feeds, or any web URL.  16 platforms, multi-backend routing (OpenCLI / per-platform CLIs / APIs). Zero config for 6 channels. Run `agent-reach doctor --json` to see which backend serves each platform right now.  NOT for: 写报告/数据分析/翻译等内容加工（本 skill 只负责从互联网获取内容）； 发帖/评论/点赞等写操作；已有专门 skill 的平台（先用专门 skill）。  【路由方式】SKILL.md 包含路由表和常用命令，复杂场景需按需阅读对应分类的 references/*.md。 分类：search / social (小红书/推特/B站/V2EX/Reddit/Facebook/Instagram) / career(LinkedIn/Boss直聘) / dev(github) / web(网页/文章/RSS) / video(YouTube/B站/播客) / finance(雪球/股票)。",
     "status": "installed",
-    "scope": "global",
+    "scope": "both",
     "sourceType": "github",
     "repoUrl": "https://github.com/Panniantong/agent-reach",
     "docsUrl": null,
@@ -122,6 +122,11 @@
     "locations": [
       {
         "root": ".agents/skills (global)",
+        "scope": "global",
+        "hasSkillMd": true
+      },
+      {
+        "root": ".config/opencode/skills (global)",
         "scope": "global",
         "hasSkillMd": true
       }
@@ -185,12 +190,14 @@
       "technical documentation"
     ],
     "sources": [
-      ".agents/skills (global)"
+      ".agents/skills (global)",
+      ".config/opencode/skills (global)"
     ],
     "verification": {
       "status": "verified",
       "sources": [
         ".agents/skills (global)",
+        ".config/opencode/skills (global)",
         "github:Panniantong/Agent-Reach"
       ],
       "evidence": [
@@ -198,7 +205,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -298,7 +305,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -399,7 +406,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -492,7 +499,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -595,7 +602,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -702,7 +709,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -795,7 +802,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -897,7 +904,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -994,7 +1001,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1094,7 +1101,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1196,7 +1203,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1298,7 +1305,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1396,7 +1403,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1496,7 +1503,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1594,7 +1601,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1695,7 +1702,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1789,7 +1796,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1886,7 +1893,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -1992,7 +1999,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -2102,7 +2109,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -2201,7 +2208,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -2298,7 +2305,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -2400,7 +2407,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -2508,7 +2515,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -2619,7 +2626,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -2731,7 +2738,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -2847,7 +2854,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -2954,7 +2961,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -3066,7 +3073,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -3181,7 +3188,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -3293,7 +3300,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -3410,7 +3417,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -3524,7 +3531,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -3645,7 +3652,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -3761,7 +3768,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -3878,7 +3885,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -3975,7 +3982,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4077,7 +4084,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4177,7 +4184,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4279,7 +4286,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4372,7 +4379,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4469,7 +4476,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4568,7 +4575,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4666,7 +4673,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4763,7 +4770,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4861,7 +4868,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -4966,7 +4973,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5068,7 +5075,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5173,7 +5180,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5273,7 +5280,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5371,7 +5378,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5476,7 +5483,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5577,7 +5584,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5674,7 +5681,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5771,7 +5778,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5864,7 +5871,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -5964,7 +5971,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6063,7 +6070,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6163,7 +6170,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6269,7 +6276,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6371,7 +6378,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6469,7 +6476,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6571,7 +6578,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6673,7 +6680,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6774,7 +6781,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6873,7 +6880,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -6973,7 +6980,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7082,7 +7089,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7176,7 +7183,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7280,7 +7287,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7373,7 +7380,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7474,7 +7481,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7567,7 +7574,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7664,7 +7671,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7767,7 +7774,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7861,7 +7868,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -7954,7 +7961,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -8054,7 +8061,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -8153,7 +8160,7 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     }
   },
   {
@@ -8251,7 +8258,99 @@
         "frontmatter description present",
         "GitHub repo metadata fetched"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
+    }
+  },
+  {
+    "id": "skill-codegraph",
+    "name": "codegraph",
+    "displayName": "codegraph",
+    "category": "Development",
+    "subcategories": [
+      "coding"
+    ],
+    "purpose": "Local semantic code knowledge graph for agents - explore symbols, call paths, and impact with fewer tokens than grep",
+    "description": "Pre-indexed code knowledge graph that auto-syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, Antigravity, Kiro, CoPilot, and Hermes Agent - fewer tokens, fewer tool calls, 100% local. Installed as an MCP server (codegraph serve --mcp) plus CLI; run codegraph init in a project to build its index, then codegraph_explore / codegraph explore for symbol source and call paths. Use when the user wants CodeGraph-powered code exploration or has a .codegraph/ directory in the repo.",
+    "status": "installed",
+    "scope": "global",
+    "sourceType": "github",
+    "repoUrl": "https://github.com/colbymchenry/codegraph",
+    "docsUrl": "https://colbymchenry.github.io/codegraph/",
+    "packageUrl": "https://www.npmjs.com/package/@colbymchenry/codegraph",
+    "installCommand": null,
+    "usageExample": "codegraph init && codegraph explore \"auth flow\"",
+    "parent": null,
+    "locations": [
+      {
+        "root": ".config/opencode/opencode.jsonc mcp (global)",
+        "scope": "global",
+        "hasSkillMd": false
+      }
+    ],
+    "version": "1.6.0",
+    "github": {
+      "owner": "colbymchenry",
+      "repo": "codegraph",
+      "stars": 71956,
+      "forks": 4615,
+      "issues": null,
+      "license": "MIT",
+      "language": "C",
+      "lastCommit": "2026-09-23T21:06:11Z",
+      "latestRelease": null,
+      "starsFetchedAt": "2026-09-24T02:32:14.939Z",
+      "error": null,
+      "starsReason": null,
+      "description": "Pre-indexed code knowledge graph, auto syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, CoPilot, and Hermes Agent - fewer tokens, fewer tool calls, 100% local",
+      "htmlUrl": "https://github.com/colbymchenry/codegraph"
+    },
+    "githubSource": "user-provided provenance",
+    "evidence": {
+      "hasSkillMd": false,
+      "hasUsage": true,
+      "hasInstall": true,
+      "bodyLength": 0,
+      "descriptionPresent": true
+    },
+    "descriptionExcerpt": "# CodeGraph\n\nSemantic code intelligence CLI + MCP for coding agents. 100% local. Kernel powered by Rust. Install: npm i -g @colbymchenry/codegraph, then codegraph install --target=opencode.",
+    "effectiveness": {
+      "score": null,
+      "level": "unknown",
+      "confidence": "low",
+      "basis": [
+        "installed via npm (@colbymchenry/codegraph 1.6.0)",
+        "MCP wired into opencode.jsonc (codegraph serve --mcp)",
+        "codegraph --version and codegraph status ran successfully",
+        "description present",
+        "last push 2026-09-23",
+        "no test/demo evidence"
+      ],
+      "tested": false,
+      "testResult": null,
+      "components": null,
+      "framework": "v1 (reliability30+docs25+maintenance20+compat10+practical15; stars excluded)"
+    },
+    "tags": [
+      "coding"
+    ],
+    "sources": [
+      "npm: @colbymchenry/codegraph",
+      ".config/opencode/opencode.jsonc mcp (global)",
+      "github:colbymchenry/codegraph"
+    ],
+    "verification": {
+      "status": "verified",
+      "sources": [
+        "npm: @colbymchenry/codegraph",
+        ".config/opencode/opencode.jsonc mcp (global)",
+        "github:colbymchenry/codegraph"
+      ],
+      "evidence": [
+        "codegraph CLI installed and version checked",
+        "MCP server entry present in opencode.jsonc",
+        "GitHub repo metadata fetched"
+      ],
+      "lastVerified": "2026-09-24T02:32:14.939Z"
     }
   }
 ]

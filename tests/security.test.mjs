@@ -6,13 +6,23 @@ import { fileURLToPath } from 'node:url';
 import { redactValue, redactHome, escapeHtml, sanitizeProbe } from './helpers.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const read = f => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', f), 'utf8'));
+const read = f => JSON.parse(fs.readFileSync(path.join(ROOT, 'public', 'data', f), 'utf8'));
 
 test('home paths are redacted', () => {
   const home = process.env.USERPROFILE || process.env.HOME;
   const out = redactHome(path.join(home, '.config', 'secret.key'));
   assert.ok(!out.includes(home.replace(/\\/g, '')) || out.startsWith('~'), 'home replaced');
   assert.ok(!/C:\\Users\\[^\\]+/i.test(out), 'no raw user path');
+});
+
+test('redactHome strips JSON-escaped Windows user paths', () => {
+  const home = process.env.USERPROFILE || process.env.HOME || '';
+  if (!home || !home.includes('\\')) return;
+  const escaped = JSON.stringify({ command: `${home}\\AppData\\Local\\tool.exe` });
+  const out = redactHome(escaped);
+  assert.ok(!out.includes('Users'), `escaped home must be redacted: ${out}`);
+  assert.ok(out.includes('~'), 'tilde form kept');
+  assert.ok(!/C:\\+Users\\+/i.test(out), 'no Windows user path left');
 });
 
 test('secret-like keys are redacted', () => {
@@ -30,12 +40,14 @@ test('secret-like keys are redacted', () => {
 
 test('data files contain no secrets or raw home paths', () => {
   for (const f of ['skills.json', 'mcp.json', 'sources.json', 'meta.json', 'categories.json']) {
-    const raw = fs.readFileSync(path.join(ROOT, 'data', f), 'utf8');
+    const raw = fs.readFileSync(path.join(ROOT, 'public', 'data', f), 'utf8');
     const home = (process.env.USERPROFILE || '').replace(/\\/g, '\\');
     if (home) {
-      // allow "~\" style only; raw C:\Users\<name> must not appear
+      // allow "~\" style only; raw C:\Users\<name> must not appear (plain or JSON-escaped)
       assert.ok(!raw.includes(process.env.USERPROFILE), `${f} must not contain raw userprofile`);
+      assert.ok(!raw.includes(process.env.USERPROFILE.replace(/\\/g, '\\\\')), `${f} must not contain JSON-escaped userprofile`);
     }
+    assert.ok(!/C:\\+Users\\+/i.test(raw), `${f} must not contain Windows user path`);
     assert.ok(!/(ghp_|github_pat_|sk-[A-Za-z0-9]{20,})/.test(raw), `${f} must not contain token-like strings`);
     assert.ok(!/"apiKey"\s*:\s*"(?!«redacted»)[^"]+"/.test(raw), `${f} must not contain apiKey values`);
   }
@@ -44,7 +56,7 @@ test('data files contain no secrets or raw home paths', () => {
 test('public payload has no absolute local paths or machine metadata', () => {
   const pub = path.join(ROOT, 'public', 'data');
   const patterns = [
-    [/C:\\Users\\/i, 'raw Windows user path'],
+    [/C:\\+Users\\+/i, 'raw Windows user path'],
     [/C:\\\//, 'raw drive root path'],
     [/\/Users\/[^/\s]+/, 'macOS user path'],
     [/\/home\/[^/\s]+/, 'Linux home path'],
@@ -77,7 +89,7 @@ test('public payload has no absolute local paths or machine metadata', () => {
   const mcps = JSON.parse(fs.readFileSync(path.join(pub, 'mcp.json'), 'utf8'));
   for (const m of mcps) {
     if (m.command) assert.ok(!/[\\/]/.test(m.command) || !/Users|AppData|home/i.test(m.command), `${m.id}: command path sanitized`);
-    if (m.configSnippet) assert.ok(!/C:\\Users|AppData/i.test(m.configSnippet), `${m.id}: configSnippet sanitized`);
+    if (m.configSnippet) assert.ok(!/C:\\+Users|AppData/i.test(m.configSnippet), `${m.id}: configSnippet sanitized`);
   }
 });
 

@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Bảng kiểm kê AI Skills và MCP servers — phân loại, xác minh nguồn, sao và hướng dẫn cài đặt. Skill &amp; MCP Inventory dashboard." />
+  <meta property="og:title" content="Skill &amp; MCP Inventory" />
+  <meta property="og:description" content="Bảng kiểm kê AI Skills và MCP servers — phân loại, xác minh nguồn và hướng dẫn cài đặt." />
+  <meta property="og:type" content="website" />
   <title>Skill &amp; MCP Inventory</title>
   <link rel="stylesheet" href="styles.css" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -37,7 +41,7 @@
           <button type="button" class="btn btn-sm lang-btn" data-lang="vi" lang="vi" aria-pressed="true">VI</button>
           <button type="button" class="btn btn-sm lang-btn" data-lang="en" lang="en" aria-pressed="false">EN</button>
         </div>
-        <span class="faint mono" id="sync-info" aria-live="polite"></span>
+        <span class="faint mono" id="clock" aria-hidden="true"></span>
       </header>
 
       <main class="content" id="main-content">
@@ -45,7 +49,7 @@
 
         <!-- OVERVIEW -->
         <section class="view active" id="view-overview" aria-labelledby="ov-h">
-          <h2 id="ov-h" class="visually-hidden" hidden data-i18n="nav.overview">Tổng quan</h2>
+          <h2 id="ov-h" class="view-title" tabindex="-1" data-i18n="nav.overview">Tổng quan</h2>
           <div class="kpis" id="kpis"></div>
           <div class="panel">
             <h2 data-i18n="panel.categories">Danh mục</h2>
@@ -67,7 +71,7 @@
 
         <!-- SKILLS -->
         <section class="view" id="view-skills" aria-labelledby="sk-h">
-          <h2 id="sk-h" class="visually-hidden" hidden data-i18n="nav.skills">Kỹ năng</h2>
+          <h2 id="sk-h" class="view-title" tabindex="-1" data-i18n="nav.skills">Kỹ năng</h2>
           <div class="filters" data-scope="skills">
             <label><span data-i18n="th.category">Danh mục</span> <select name="category" data-filter="category" data-i18n-aria="filter.byCat" aria-label="Lọc kỹ năng theo danh mục"><option value="" data-i18n="common.all">Tất cả</option></select></label>
             <label><span data-i18n="th.source">Nguồn</span> <select name="source" data-filter="source" data-i18n-aria="filter.bySource" aria-label="Lọc kỹ năng theo nguồn"><option value="" data-i18n="common.all">Tất cả</option></select></label>
@@ -76,6 +80,7 @@
             <label><input type="checkbox" name="tested" data-filter="tested" /> <span data-i18n="th.tested">Đã kiểm thử</span></label>
             <label><span data-i18n="th.sort">Sắp xếp</span> <select name="sort" data-sort data-i18n-aria="filter.sortSkills" aria-label="Sắp xếp kỹ năng">
               <option value="name" data-i18n="sort.name">Tên</option>
+              <option value="category" data-i18n="th.category">Danh mục</option>
               <option value="stars" data-i18n="sort.stars">Sao</option>
               <option value="updated" data-i18n="sort.updated">Cập nhật gần nhất</option>
             </select></label>
@@ -100,7 +105,7 @@
 
         <!-- MCP -->
         <section class="view" id="view-mcp" aria-labelledby="mc-h">
-          <h2 id="mc-h" class="visually-hidden" hidden data-i18n="cap.mcp">Máy chủ MCP</h2>
+          <h2 id="mc-h" class="view-title" tabindex="-1" data-i18n="nav.mcp">MCP</h2>
           <div class="filters" data-scope="mcp">
             <label><span data-i18n="th.category">Danh mục</span> <select name="category" data-filter="category" data-i18n-aria="filter.byCatMcp" aria-label="Lọc MCP theo danh mục"><option value="" data-i18n="common.all">Tất cả</option></select></label>
             <label><span data-i18n="th.source">Nguồn</span> <select name="source" data-filter="source" data-i18n-aria="filter.byHost" aria-label="Lọc MCP theo host"><option value="" data-i18n="common.all">Tất cả</option></select></label>
@@ -109,6 +114,7 @@
             <label><input type="checkbox" name="tested" data-filter="tested" /> <span data-i18n="th.tested">Đã kiểm thử</span></label>
             <label><span data-i18n="th.sort">Sắp xếp</span> <select name="sort" data-sort data-i18n-aria="filter.sortMcp" aria-label="Sắp xếp máy chủ MCP">
               <option value="name" data-i18n="sort.name">Tên</option>
+              <option value="category" data-i18n="th.category">Danh mục</option>
               <option value="stars" data-i18n="sort.stars">Sao</option>
               <option value="updated" data-i18n="sort.updated">Cập nhật gần nhất</option>
             </select></label>
@@ -133,13 +139,13 @@
 
         <!-- CATEGORIES -->
         <section class="view" id="view-categories" aria-labelledby="ct-h">
-          <h2 id="ct-h" class="visually-hidden" hidden data-i18n="nav.categories">Danh mục</h2>
+          <h2 id="ct-h" class="view-title" tabindex="-1" data-i18n="nav.categories">Danh mục</h2>
           <div class="grid" id="cat-grid"></div>
         </section>
 
         <!-- REPOSITORIES -->
         <section class="view" id="view-repos" aria-labelledby="rp-h">
-          <h2 id="rp-h" class="visually-hidden" hidden data-i18n="nav.repos">Kho mã nguồn</h2>
+          <h2 id="rp-h" class="view-title" tabindex="-1" data-i18n="nav.repos">Kho mã nguồn</h2>
           <div class="filters" data-scope="repos">
             <label><span data-i18n="th.sort">Sắp xếp</span> <select name="sort" data-sort data-i18n-aria="filter.sortRepos" aria-label="Sắp xếp kho mã nguồn">
               <option value="stars" data-i18n="sort.stars">Sao</option>
@@ -169,14 +175,17 @@
 
         <!-- CLI -->
         <section class="view" id="view-cli" aria-labelledby="cli-h">
-          <h2 id="cli-h" class="visually-hidden" hidden data-i18n="nav.cli">CLI</h2>
-          <p class="dim" data-i18n="cli.intro" style="margin:0 0 14px">Lệnh cài đặt dòng lệnh cho các AI coding CLI. Lấy từ tài liệu chính thức — chọn lệnh khớp OS của bạn.</p>
+          <h2 id="cli-h" class="view-title" tabindex="-1" data-i18n="nav.cli">CLI</h2>
+          <p class="dim cli-intro" data-i18n="cli.intro">Lệnh cài đặt dòng lệnh cho các AI coding CLI. Lấy từ tài liệu chính thức — chọn lệnh khớp OS của bạn.</p>
           <div class="grid cli-grid" id="cli-grid"></div>
         </section>
       </main>
     </div>
   </div>
 
+  <a class="sticker" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" aria-label="Never Gonna Give You Up">
+    <img src="logos/sticker.png" alt="" aria-hidden="true" width="200" height="200" />
+  </a>
   <div class="overlay" id="overlay" hidden></div>
   <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
     <div class="drawer-head">

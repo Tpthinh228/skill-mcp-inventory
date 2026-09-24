@@ -92,7 +92,7 @@
         "command/args present in config",
         "package resolved via registry"
       ],
-      "lastVerified": "2026-09-23T07:56:06.623Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     },
     "sources": [
       "OpenCode: ~/.config/opencode/opencode.jsonc"
@@ -197,7 +197,7 @@
         "command/args present in config",
         "package resolved via registry"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     },
     "sources": [
       "OpenCode: ~/.config/opencode/opencode.jsonc"
@@ -304,7 +304,7 @@
         "declared in Claude Code, Codex, OpenCode",
         "command/args present in config"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     },
     "sources": [
       "Claude Code: ~/.claude.json"
@@ -400,7 +400,7 @@
         "declared in Claude Code",
         "command/args present in config"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     },
     "sources": [
       "Claude Code: ~/.claude.json"
@@ -497,7 +497,7 @@
         "declared in OpenCode",
         "command/args present in config"
       ],
-      "lastVerified": "2026-09-23T08:37:10.862Z"
+      "lastVerified": "2026-09-23T15:09:33.020Z"
     },
     "sources": [
       "OpenCode: ~/.config/opencode/opencode.jsonc"

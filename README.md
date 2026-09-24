@@ -1,56 +1,53 @@
 # Skill & MCP Inventory Dashboard
 
-Website kiểm kê & phân loại toàn bộ **AI Skills** và **MCP servers** trong môi trường hiện tại — dữ liệu lấy bằng scan thật từ filesystem/config, không hard-code.
+Website kiểm kê & phân loại **AI Skills** và **MCP servers** — dữ liệu là các file JSON trong `public/data/`, bạn cập nhật tay theo schema, web chỉ đọc và hiển thị.
 
 ## Chạy nhanh
 
 ```bash
-npm run inventory:all   # scan + github + verify + build
 npm run serve           # → http://localhost:4173
-npm test                # discovery/data/security/github tests
+npm test                # data-integrity + security
 ```
 
-Hoặc một lệnh: `npm start`.
+## Cập nhật nội dung
+
+1. Sửa trực tiếp `public/data/skills.json` / `public/data/mcp.json` (mỗi phần tử 1 entry, xem schema trong file sẵn có).
+2. `npm run recount` — tự đếm lại `meta.json` → `counts` và `categories.json` từ 2 file danh sách.
+3. `npm test` — bắt lỗi lệch counts / sai schema / rò rỉ secret.
+4. `git push` — GitHub Pages tự cập nhật.
 
 ## Scripts
 
 | Script | Chức năng |
 |---|---|
-| `npm run inventory:scan` | Quét skill roots + MCP configs → `data/skills.json`, `data/mcp.json` |
-| `npm run inventory:github` | Resolve package (npm/pypi registry) → repo → fetch GitHub API (cache 24h) |
-| `npm run inventory:verify` | Ghi `verification.status/sources/lastVerified` theo bằng chứng |
-| `npm run inventory:build` | Chấm effectiveness + categories + sources + meta, copy sang `public/data/` |
-| `npm run inventory:all` | Chạy đủ 4 bước trên |
-| `npm run serve` | Static server + `POST /api/rescan` (nút Refresh trong UI) |
-| `npm test` | `node --test` — discovery, security, data-integrity, github fallback |
+| `npm run serve` | Static server local (CSP + `/api/health`) |
+| `npm run recount` | Đọc `public/data/{skills,mcp}.json` → ghi lại `meta.json` counts + `categories.json` |
+| `npm test` | `node --test` — data-integrity + security |
 
-## Nguồn dữ liệu
-
-- **Skills**: `~/.agents/skills`, `~/.claude/skills`, `~/.codex/skills`, `~/.config/opencode/skills`, cache packages opencode (superpowers, ponytail), project-local roots.
-- **MCP**: `~/.claude.json`, `~/.codex/config.toml`, `~/.config/opencode/opencode.json(c)`, Claude Desktop config, project `.mcp.json`/`mcp.json`.
+Stars/forks tự đồng bộ live trên client mỗi 3 phút (GitHub API, ETag).
 
 ## Bảng điều khiển
 
-Overview · Skills · MCP · Categories · Repositories · Verification — search (debounce 150ms), filter (category/status/source/has-GitHub/verified/tested), sort (name/stars/effectiveness/updated), detail drawer (focus trap, Esc), copy install/config, empty state, rate-limit banner, responsive (desktop sidebar → mobile top-nav).
+Overview · Skills · MCP · Categories · Repositories · CLI — search (debounce 150ms), filter (category/source/has-GitHub/verified/tested), sort (name/stars/effectiveness/updated), detail drawer (focus trap, Esc), copy install/config, empty state, rate-limit banner, responsive (desktop sidebar → mobile top-nav).
 
 ## Hiệu quả (effectiveness)
 
-Framework v1, **stars không bao giờ là input**:
+Framework v1 (field do dữ liệu entry mang theo, **stars không bao giờ là input**):
 
 ```
 Reliability 30 + Documentation 25 + Maintenance 20 + Compatibility 10 + Practical 15
 ```
 
-Component Maintenance chỉ tính khi có repo activity verified; thiếu bằng chứng → component bị loại khỏi maxPossible (không tự chấm 0 rồi quy về tổng). Chưa test → `tested: false`, basis ghi "no test/demo evidence". Chi tiết: `scripts/build-inventory.mjs`.
+Component Maintenance chỉ tính khi có repo activity verified; thiếu bằng chứng → component bị loại khỏi maxPossible. Chưa test → `tested: false`.
 
 ## Security
 
 - Dữ liệu render bằng `textContent`/DOM API (không `innerHTML` với data) → không XSS.
-- CSP qua server: `default-src 'self'` (+ `style-src 'unsafe-inline'` cho meter width do JS set).
+- CSP qua server: `default-src 'self'` (+ `connect-src` cho `api.github.com`), `style-src 'unsafe-inline'`.
 - URL phải qua allow-list protocol (`http/https/mailto`) trước khi mở.
-- `redactHome`/`redactValue`: mask `C:\Users\<name>` → `~`, mask key dạng `*KEY|TOKEN|SECRET|PASS*` → `«redacted»`.
+- `redactHome`/`redactValue` trong `scripts/lib.mjs`: mask path home → `~`, mask key dạng `*KEY|TOKEN|SECRET|PASS*` → `«redacted»`.
+- Test `security.test.mjs` quét `public/data/*.json` không được chứa secret/path máy cá nhân.
 - Install command chỉ hiển thị/copy, không bao giờ tự chạy từ browser.
-- Path local hiển thị dạng `~/...` trên UI.
 
 ## Cấu trúc
 
@@ -58,8 +55,8 @@ Component Maintenance chỉ tính khi có repo activity verified; thiếu bằng
 skill-mcp-inventory/
 ├── README.md
 ├── package.json
-├── scripts/          # discover-skills, discover-mcp, github-metadata, verify, build-inventory, serve
-├── data/             # skills.json, mcp.json, categories.json, sources.json, meta.json + caches
-├── public/           # index.html, app.js, styles.css (+ data/ copy khi build)
-├── tests/            # discovery, security, data-integrity, github
+├── scripts/          # serve, recount, lib
+├── public/           # index.html, app.js, styles.css
+│   └── data/         # skills.json, mcp.json, categories.json, sources.json, meta.json, purpose-vi.json
+└── tests/            # data-integrity, security
 ```

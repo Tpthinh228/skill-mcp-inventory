@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const read = f => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', f), 'utf8'));
+const read = f => JSON.parse(fs.readFileSync(path.join(ROOT, 'public', 'data', f), 'utf8'));
 const GH_RE = /^https:\/\/github\.com\/[^/\s]+\/[^/\s]+$/;
 
 test('no fake stars: stars are null or numbers with fetch timestamp', () => {
